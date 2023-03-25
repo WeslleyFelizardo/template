@@ -1,0 +1,54 @@
+.app-markdown-wrapper {
+  --font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  word-spacing: 0.3em;
+  letter-spacing: 0.6px;
+  min-height: 100vh;
+}
+
+.app-markdown-wrapper>h1 {
+  padding-bottom: 2rem !important;
+ 
+  font-size: 2.25rem;
+}
+
+.app-markdown-wrapper>h2 {
+  padding-top: 1.3rem !important;
+  padding-bottom: 1.1rem !important; 
+  font-size: 2rem;
+}
+
+.app-markdown-wrapper>image {
+  padding-top: 1.3rem !important;
+  padding-bottom: 1.1rem !important;  
+}
+
+.app-markdown-wrapper>h3 {
+  padding-top: 1.1rem;
+  padding-bottom: 0.5rem;
+}
+
+.app-markdown-wrapper>ul>li {
+  font-size: 1.2rem !important;
+  font-weight: 300 !important
+}
+
+.app-markdown-wrapper>ul {
+  font-size: 1.2rem !important;
+  padding-top: 1rem;
+  padding-bottom: 1.5em;
+}
+
+.app-markdown-wrapper>p {
+  font-size: 1.2rem !important;
+  font-weight: 300 !important;
+}
+
+pre[class*="language-console"] {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  margin: 1em 0em 1em 0em !important;
+  margin-bottom: 1em !important;
+}
+
+

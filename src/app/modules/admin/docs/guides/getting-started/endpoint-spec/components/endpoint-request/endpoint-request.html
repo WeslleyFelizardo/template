@@ -1,0 +1,220 @@
+<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 w-full min-w-0">
+    <div>
+        <span class="font-extrabold">{{selectedEndpointData.properties.method}}</span><span class="ml-2"> {{selectedEndpointData.properties.urlTemplate}}</span>
+    </div>    
+
+    <div *ngIf="!!selectedEndpointData?.properties?.request?.queryParameters" class="mt-2">
+        <h4 class="text-3x2 md:text-4x2 font-extrabold tracking-tight leading-7 sm:leading-10 truncate pb-4">
+            Query Parameters:
+        </h4>
+        <div *ngFor="let parameter of selectedEndpointData?.properties?.request?.queryParameters; let last=last" class="mb-4">
+            <div>
+                <span class="font-extrabold ml-4">{{parameter.name}}</span><span>: {{parameter.type}}</span>
+            </div>
+            <span class="text-info ml-4">
+                {{parameter.description}} 
+            </span>
+            <mat-divider *ngIf="!last" class="my-2"></mat-divider>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 w-full min-w-0">
+
+    <div *ngIf="!!selectedEndpointData?.properties?.request?.headers" class="mt-2">
+        <h4 class="text-3x2 md:text-4x2 font-extrabold tracking-tight leading-7 sm:leading-10 truncate pb-4">
+            Headers Parameters:
+        </h4>
+        <div class="mb-4">
+            <div>
+                <span class="font-extrabold ml-4">Authorization</span><span>: string</span>
+            </div>
+            <span class="text-info ml-4">
+                Informar token de acesso - Bearer [token]
+            </span>
+            <mat-divider *ngIf="!last" class="my-2"></mat-divider>
+        </div>
+        <div *ngFor="let parameter of selectedEndpointData?.properties?.request?.headers; let last=last" class="mb-4">
+            <div>
+                <span class="font-extrabold ml-4">{{parameter.name}}</span><span>: {{parameter.type}}</span>
+            </div>
+            <span class="text-info ml-4">
+                {{parameter.description}} 
+            </span>
+            <mat-divider *ngIf="!last" class="my-2"></mat-divider>
+        </div>
+    </div>
+</div>
+
+<div class="w-full max-w-screen-xl mx-auto">
+    <h3 class="ml-2 text-3x1 md:text-4x1 font-extrabold tracking-tight leading-7 sm:leading-10 truncate">Response</h3>
+
+    <!-- Tabs -->
+    <mat-tab-group
+        class="sm:px-2"
+        mat-stretch-tabs="false"
+        [animationDuration]="'0'"
+        *ngIf="!!selectedEndpointData?.properties?.responses"
+        >
+
+        <!-- Request -->
+        <mat-tab *ngFor="let response of selectedEndpointData?.properties?.responses">
+            <ng-template mat-tab-label >
+                <span class="inline-flex items-center space-x-2">
+                    <mat-icon svgIcon="heroicons_outline:academic-cap"></mat-icon>
+                    <span class="">{{response?.statusCode}}</span>
+                    <!-- <span class="px-2 py-1 text-sm rounded-full bg-primary-100 text-on-primary-100">9</span> -->
+                </span>
+            </ng-template>
+            <ng-template matTabContent>
+                <div class="flex flex-col flex-auto w-full min-w-0">
+                    <div *ngIf="!!response.representations" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-6 w-full min-w-0">
+                        <div class="prose">
+                            <div fxLayout.xs="column" fxLayout="row" class="pt-2">
+                                <div *ngIf="!!response.representations" fxFlex="50" fxFlex.xs="100" fxLayoutAlign="start start">
+                                    <div *ngFor="let representation of response.representations" class="">
+                                      
+                                        <div class="">
+                                            <div class="col-12">
+                                                <div class="col-2"><strong>Description&nbsp;</strong></div>
+                                                <div class="col-10 p-0 m-0"><span> <span class="text-info">[{{response?.statusCode}}]&nbsp;{{response.description}}</span></span></div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-4 pt-3 section-info"> </div>
+                                        <div fxLayout="row">
+                                            <div class="mat-h3 font-weight-bold col-12"> BODY   <button (click)="copyContent($event, representation)" class="pl-2 text-center justify-content-center position-relative material-icons btn">
+                                                content_copy
+                                                </button></div>
+                                          
+                                        </div>
+                                         
+                                        <div class="col-12 p-1 p-sm-0">
+                                            <div *ngFor="let mapedRepresentation of representation; let last=last">
+                                              
+                                                <div class="row pt-1 pb-2">
+                                                    <div class="col-12"> 
+                                                        <strong>Content Type</strong><span></span>
+                                                        <div class="col-12"><span> <span class="text-uppercase">{{mapedRepresentation?.typeSchema?.type}} </span> [<span class="text-info"><strong>&nbsp;{{mapedRepresentation?.typeSchema?.items?.$refName}}</strong></span>] </span>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                
+                
+                                                <div fxLayout="row pt-3 prose">
+                                                    <h3 class="text-3x1 md:text-4x1 font-extrabold tracking-tight leading-7 sm:leading-10 truncate">Fields</h3>
+                                                </div>
+                                                <div class="col-12" *ngFor="let property of mapedRepresentation?.typeSchema?.items?.$refSchema?.properties | keyvalue" >
+                                                        <div (click)="openDialogRef(property)" class="row pb-2"> 
+                                                            <div *ngIf="property?.key" class="col-12">
+                                                                <span  class="font-weight-bold" [ngClass]="{'pointer btn-link': property?.value?.items}" style="font-size: 14px"><strong class="token property"> {{property.key    }}</strong></span>
+                                                                <span *ngIf="property?.value?.type">
+                                                                    <code class="font-weight-bold" style="word-break: normal"><i class="pl-2  text-info">{{property.value.type}}</i></code>
+                                                                </span>
+                                                                <span *ngIf="property.value?.nullable" class="float-right">
+                                                                    <span style="font-size:12px"><strong>Nullable &nbsp;</strong></span>
+                                                                    <code style="word-break: normal" class="pl-2  text-info"><i>{{property.value?.nullable}}</i>  </code>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="property?.value?.description" class="row pl-3">
+                                                            <div class="col-12 property-title">
+                                                                <strong>Descrição</strong>
+                                                            </div>
+                                                            <div  class="col-12">
+                                                                <span class="float-left pl-3">
+                                                                    <code
+                                                                    class="text-info" style="word-break: normal"><i class="text-info">{{property?.value?.description}}</i></code>
+                                                                </span>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="property?.value?.example" class="row pl-3">
+                                                            <div  class="col-12 property-title">
+                                                                <strong>Exemplo</strong>
+                                                            </div>
+                                                            <div  class="col-12">
+                                                                <code class="text-info"   style="word-break: normal"><i>{{property?.value?.example}}</i></code>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="property?.value?.format" class="row pl-3">
+                                                            <div  class="col-12 property-title">
+                                                                <strong>Format</strong>
+                                                            </div>
+                                                            <div   class="col-12">
+                                                                <div class="pl-2">
+                                                                    <code   class="text-info" style="word-break: normal"><i>{{property?.value?.format}}</i></code>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="row pt-1 pb-2">
+                                                            <div  class="col-12 ">
+                                                                <mat-divider></mat-divider>
+                                                            </div>
+                                                        </div>
+                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+
+
+
+
+
+
+                            
+
+
+
+                        </div>
+                        <div *ngIf="!!response.representations; else norepresentations" >
+                            <div *ngFor="let _representation of response.representations" class="p-0 m-0"> 
+                                <mat-accordion *ngFor="let representation of _representation">
+                                    <mat-expansion-panel class="mat-elevation-z0 pt-1 m-0" [expanded]="expandedResponse">
+                                        <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                                            <mat-panel-title>
+                                                Response Example
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                                        <mat-panel-description class="pt-2"> {{representation.contentType}} 
+                                            <span (click)="copyContent($event, representation.examples.default.value)" class="pl-2 text-center justify-content-center position-relative material-icons btn">
+                                            content_copy
+                                            </span>
+                                        </mat-panel-description>
+                                        
+                                        <div *ngFor="let example of representation?.examples?.default?.value">                                    
+                                            <div markdown
+                                                [innerHTML]="example | json | language : 'typescript' | markdown">
+                                                
+                                            </div>
+                                        </div>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="response?.statusCode != 200" class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6 w-full min-w-0">
+                        <div class="prose">
+                            <!-- Some rich-text content with paragraphs, lists, links and etc. -->
+                            Teste
+                        </div>
+                        <div class="prose">
+                            <!-- Some rich-text content with paragraphs, lists, links and etc. -->
+                            Teste
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </mat-tab>
+
+       
+
+    </mat-tab-group>
+</div>

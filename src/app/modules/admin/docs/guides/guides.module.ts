@@ -10,10 +10,6 @@ import { FuseNavigationModule } from '@fuse/components/navigation';
 import { FuseScrollResetModule } from '@fuse/directives/scroll-reset';
 import { SharedModule } from 'app/shared/shared.module';
 import { GuidesComponent } from 'app/modules/admin/docs/guides/guides.component';
-import { IntroductionComponent } from 'app/modules/admin/docs/guides/getting-started/introduction/introduction';
-import { PrerequisitesComponent } from 'app/modules/admin/docs/guides/getting-started/prerequisites/prerequisites';
-import { InstallationComponent } from 'app/modules/admin/docs/guides/getting-started/installation/installation';
-import { ServingComponent } from 'app/modules/admin/docs/guides/getting-started/serving/serving';
 import { DirectoryStructureComponent } from 'app/modules/admin/docs/guides/development/directory-structure/directory-structure';
 import { ComponentStructureComponent } from 'app/modules/admin/docs/guides/development/component-structure/component-structure';
 import { StarterKitComponent } from 'app/modules/admin/docs/guides/development/starter-kit/starter-kit';
@@ -29,16 +25,24 @@ import { MultiLanguageCustomizationComponent } from 'app/modules/admin/docs/guid
 import { JwtComponent } from 'app/modules/admin/docs/guides/authentication/jwt/jwt';
 import { guidesRoutes } from 'app/modules/admin/docs/guides/guides.routing';
 import { SecurityComponent } from './getting-started/security/security';
-import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { MarkdownModule } from 'ngx-markdown';
+import { LayoutModule } from 'app/layout/layout.module';
+import { OverviewComponent } from './getting-started/overview/overview';
+import { CoreModule } from 'app/core/core.module';
+import { ServicesModule } from 'app/core/services/services.module';
+import { EndpointSpecComponent } from './getting-started/endpoint-spec/endpoint-spec';
+import { MatTabsModule } from '@angular/material/tabs';
+import { EndpointRequestComponent } from './getting-started/endpoint-spec/components/endpoint-request/endpoint-request';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
     declarations: [
         GuidesComponent,
-        IntroductionComponent,
-        PrerequisitesComponent,
+        OverviewComponent,
         SecurityComponent,
-        InstallationComponent,
-        ServingComponent,
+        EndpointSpecComponent,
+        EndpointRequestComponent,
         DirectoryStructureComponent,
         ComponentStructureComponent,
         StarterKitComponent,
@@ -64,7 +68,12 @@ import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
         FuseNavigationModule,
         FuseScrollResetModule,
         SharedModule,
-        MarkdownModule.forChild()
+        LayoutModule,
+        MarkdownModule.forChild(),
+        ServicesModule,
+        MatTabsModule,
+        MatDividerModule,
+        MatExpansionModule
     ]
 })
 export class GuidesModule

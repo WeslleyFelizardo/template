@@ -1,9 +1,6 @@
 import { Route } from '@angular/router';
 import { GuidesComponent } from 'app/modules/admin/docs/guides/guides.component';
-import { IntroductionComponent } from 'app/modules/admin/docs/guides/getting-started/introduction/introduction';
-import { PrerequisitesComponent } from 'app/modules/admin/docs/guides/getting-started/prerequisites/prerequisites';
-import { InstallationComponent } from 'app/modules/admin/docs/guides/getting-started/installation/installation';
-import { ServingComponent } from 'app/modules/admin/docs/guides/getting-started/serving/serving';
+import { OverviewComponent } from 'app/modules/admin/docs/guides/getting-started/overview/overview';
 import { DirectoryStructureComponent } from 'app/modules/admin/docs/guides/development/directory-structure/directory-structure';
 import { ComponentStructureComponent } from 'app/modules/admin/docs/guides/development/component-structure/component-structure';
 import { StarterKitComponent } from 'app/modules/admin/docs/guides/development/starter-kit/starter-kit';
@@ -18,6 +15,7 @@ import { SplashScreenCustomizationComponent } from 'app/modules/admin/docs/guide
 import { MultiLanguageCustomizationComponent } from 'app/modules/admin/docs/guides/customization/multi-language/multi-language';
 import { JwtComponent } from 'app/modules/admin/docs/guides/authentication/jwt/jwt';
 import { SecurityComponent } from './getting-started/security/security';
+import { EndpointSpecComponent } from './getting-started/endpoint-spec/endpoint-spec';
 
 export const guidesRoutes: Route[] = [
     {
@@ -35,41 +33,29 @@ export const guidesRoutes: Route[] = [
                     {
                         path      : '',
                         pathMatch : 'full',
-                        redirectTo: 'introduction'
+                        redirectTo: 'overview'
                     },
                     {
-                        path     : 'introduction',
-                        component: IntroductionComponent
-                    },
-                    {
-                        path     : 'prerequisites',
-                        component: PrerequisitesComponent
+                        path     : 'overview',
+                        component: OverviewComponent
                     },
                     {
                         path     : 'security',
                         component: SecurityComponent
-                    },
-                    {
-                        path     : 'installation',
-                        component: InstallationComponent
-                    },
-                    {
-                        path     : 'serving',
-                        component: ServingComponent
                     }
                 ]
             },
             {
-                path    : 'development',
+                path    : 'endpoints-spec',
                 children: [
+                    // {
+                    //     path      : '',
+                    //     pathMatch : 'full',
+                    //     redirectTo: 'structure'
+                    // },
                     {
-                        path      : '',
-                        pathMatch : 'full',
-                        redirectTo: 'structure'
-                    },
-                    {
-                        path     : 'directory-structure',
-                        component: DirectoryStructureComponent
+                        path     : ':endpoint',
+                        component: EndpointSpecComponent
                     },
                     {
                         path     : 'component-structure',

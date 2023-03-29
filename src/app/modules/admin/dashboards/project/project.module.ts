@@ -22,6 +22,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FuseFindByKeyPipeModule } from '@fuse/pipes/find-by-key';
+import { FuseCardModule } from '@fuse/components/card';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { NguCarouselModule } from '@ngu/carousel';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -54,7 +58,11 @@ import { FuseFindByKeyPipeModule } from '@fuse/pipes/find-by-key';
         MatTooltipModule,
         FuseFindByKeyPipeModule,
         SharedModule,
-        MatTabsModule
+        MatTabsModule,
+        FuseCardModule,
+        IvyCarouselModule,
+        NguCarouselModule,
+        MatCheckboxModule
     ]
 })
 export class ProjectModule

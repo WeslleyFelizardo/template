@@ -1,0 +1,23 @@
+{
+    "markdown": {
+        "observacao": "Observação",
+        "dica": "Dica",
+        "aviso": "Aviso",
+        "cuidado": "Cuidado",
+        "importante": "Importante"
+    },
+    "servicos": {
+        "TITULO": "Estes são os Endpoints que disponibilizamos para você se integrar conosco.",
+        "conheca-nossas-api": "Conheça nossas API's",
+        "link-documentacao": "Documentação"
+    },
+    "recursos": {
+        "titulo": "O que oferecemos para você?",
+        "descricao": "Nosso objetivo principal é trazer agilidade e segurança na integração de sistemas com nossos parceiros, venha conhecer nossa plataforma.",
+        "seguranca": {
+            "titulo": "",
+            "descricao": ""
+        }
+    }
+}
+

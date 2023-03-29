@@ -55,11 +55,24 @@
                             "src/styles/vendors.scss",
                             "src/@fuse/styles/main.scss",
                             "src/styles/styles.scss",
-                            "src/styles/tailwind.scss"
+                            "src/styles/tailwind.scss",
+                            "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.min.css",
+                            "node_modules/prismjs/themes/prism-okaidia.css",
+                            "node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css",
+                            "src/assets/prism-okaidia-mod.css"
+
                         ],
-                        "scripts": [
-                            "./node_modules/prismjs/prism.js",
-                            "./node_modules/marked/marked.min.js"                      
+                        "scripts": [  
+                            "node_modules/marked/marked.min.js",
+                            "node_modules/prismjs/prism.js",
+                            "node_modules/prismjs/components/prism-typescript.min.js",
+                            "node_modules/emoji-toolkit/lib/js/joypixels.min.js",
+                            "node_modules/prismjs/components/prism-json.min.js",
+                            "node_modules/prismjs/plugins/show-language/prism-show-language.js",
+                            "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.min.js",
+                            "node_modules/prismjs/plugins/jsonp-highlight/prism-jsonp-highlight.min.js",
+                            "node_modules/prismjs/components/prism-csharp.min.js",
+                            "node_modules/prismjs/components/prism-css.min.js"
                         ]
                     },
                     "configurations": {
@@ -122,11 +135,30 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "src/styles/styles.scss"
+                            "src/styles/styles.scss",
+                            "src/@fuse/styles/tailwind.scss",
+                            "src/@fuse/styles/themes.scss",
+                            "src/styles/vendors.scss",
+                            "src/@fuse/styles/main.scss",
+                            "src/styles/styles.scss",
+                            "src/styles/tailwind.scss",
+                            "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.min.css",
+                            "node_modules/prismjs/themes/prism-okaidia.css",
+                            "src/assets/prism-okaidia-mod.css",
+                            "node_modules/prismjs/plugins/line-highlight/prism-line-highlight.css"
                         ],
-                        "scripts": [
-                            "./node_modules/prismjs/prism.js",
-                            "./node_modules/marked/marked.min.js"                      ]
+                        "scripts": [  
+                            "node_modules/marked/marked.min.js",
+                            "node_modules/prismjs/prism.js",
+                            "node_modules/prismjs/components/prism-typescript.min.js",
+                            "node_modules/emoji-toolkit/lib/js/joypixels.min.js",
+                            "node_modules/prismjs/components/prism-json.min.js",
+                            "node_modules/prismjs/plugins/show-language/prism-show-language.js",
+                            "node_modules/prismjs/plugins/line-numbers/prism-line-numbers.min.js",
+                            "node_modules/prismjs/plugins/jsonp-highlight/prism-jsonp-highlight.min.js",
+                            "node_modules/prismjs/components/prism-csharp.min.js",
+                            "node_modules/prismjs/components/prism-css.min.js" 
+                         ]
                     }
                 }
             }

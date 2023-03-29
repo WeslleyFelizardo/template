@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
@@ -11,6 +11,8 @@ import { mockApiServices } from 'app/mock-api';
 import { LayoutModule } from 'app/layout/layout.module';
 import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
+import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
+import { NguCarouselModule } from '@ngu/carousel';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -35,7 +37,20 @@ const routerConfig: ExtraOptions = {
         CoreModule,
 
         // Layout module of your application
-        LayoutModule
+        LayoutModule,
+        MarkdownModule.forRoot({
+            sanitize: SecurityContext.NONE,
+            markedOptions: {
+              provide: MarkedOptions,
+              useValue: { 
+               gfm: false,
+               breaks: false,
+               pedantic: false,
+               smartLists: true,
+               smartypants: true,
+             },
+           },
+         }),
     ],
     bootstrap   : [
         AppComponent

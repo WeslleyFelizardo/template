@@ -6,8 +6,8 @@ export const projectRoutes: Route[] = [
     {
         path     : '',
         component: ProjectComponent,
-        resolve  : {
-            data: ProjectResolver
-        }
+        // resolve  : {
+        //     data: ProjectResolver
+        // }
     }
 ];

@@ -35,9 +35,13 @@ export class AuthInterceptor implements HttpInterceptor
         // the user out from the app.
         if ( this._authService.accessToken && !AuthUtils.isTokenExpired(this._authService.accessToken) )
         {
-            newReq = req.clone({
-                headers: req.headers.set('Authorization', 'Bearer ' + this._authService.accessToken)
-            });
+            if (!req.url.includes('https://strgbtpapim.blob.core.windows.net'))
+            {
+                newReq = req.clone({
+                    headers: req.headers.set('Authorization', 'Bearer ' + this._authService.accessToken)
+                });
+            }
+            
         }
 
         // Response

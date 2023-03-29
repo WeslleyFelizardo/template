@@ -33,10 +33,10 @@
                 <div class="hidden lg:flex">
                     <img
                         class="dark:hidden w-24"
-                        src="assets/images/logo/logo-text.svg">
+                        src="assets/images/logo/logo-btp-tela-inicial.png">
                     <img
                         class="hidden dark:flex w-24"
-                        src="assets/images/logo/logo-text-on-dark.svg">
+                        src="assets/images/logo/btp-home-branco.png">
                 </div>
                 <img
                     class="flex lg:hidden w-8"
@@ -59,17 +59,18 @@
         <!-- Components -->
         <div class="flex items-center pl-2 ml-auto space-x-0.5 sm:space-x-2">
             <languages></languages>
-            <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
-            <search [appearance]="'bar'"></search>
-            <shortcuts></shortcuts>
-            <messages></messages>
-            <notifications></notifications>
-            <button
+            <scheme></scheme>
+            <!-- <fuse-fullscreen class="hidden md:block"></fuse-fullscreen> -->
+            <!-- <search [appearance]="'bar'"></search> -->
+            <!-- <shortcuts></shortcuts> -->
+            <!-- <messages></messages> -->
+            <!-- <notifications></notifications> -->
+            <!-- <button
                 class="lg:hidden"
                 mat-icon-button
                 (click)="quickChat.toggle()">
                 <mat-icon [svgIcon]="'heroicons_outline:chat-alt-2'"></mat-icon>
-            </button>
+            </button> -->
             <user></user>
         </div>
     </div>
@@ -89,4 +90,4 @@
 </div>
 
 <!-- Quick chat -->
-<quick-chat #quickChat="quickChat"></quick-chat>
+<!-- <quick-chat #quickChat="quickChat"></quick-chat> -->

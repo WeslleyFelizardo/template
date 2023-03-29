@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UtilService } from 'app/core/services/util.service';
 import { GuidesComponent } from 'app/modules/admin/docs/guides/guides.component';
 
 @Component({
@@ -7,11 +8,16 @@ import { GuidesComponent } from 'app/modules/admin/docs/guides/guides.component'
 })
 export class SecurityComponent
 {
+    public urlSecurityMd = 'https://strgbtpapim.blob.core.windows.net/btp-docs/developer-portal/';
+
     /**
      * Constructor
      */
-    constructor(private _guidesComponent: GuidesComponent)
+    constructor(
+        private _guidesComponent: GuidesComponent,
+        private utilService: UtilService )
     {
+        this.urlSecurityMd = `${this.urlSecurityMd}${utilService.setLangMarkdown("security")}`;
     }
 
     // -----------------------------------------------------------------------------------------------------

@@ -81,6 +81,8 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
         this._handleOverlayClick = (): void => {
             this.close();
         };
+
+        console.log('Navigation', this.navigation)
     }
 
     // -----------------------------------------------------------------------------------------------------

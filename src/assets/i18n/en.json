@@ -1,5 +1,22 @@
 {
-    "welcome-back": "Welcome back",
-    "Project": "Project",
-    "Analytics": "Analytics"
+    "markdown": {
+        "observacao": "Note",
+        "dica": "Tip",
+        "aviso": "Warning",
+        "cuidado": "Caution",
+        "importante": "Important"
+    },
+    "servicos": {
+        "conheca-nossas-api": "Discover our API's",
+        "link-documentacao": "Documentation"
+    },
+    "recursos": {
+        "titulo": "What do we offer you?",
+        "descricao": "Our main objective is to bring agility and security in the integration of systems with our partners, come and discover our platform.",
+        "seguranca": {
+            "titulo": "",
+            "descricao": ""
+        }
+    }
 }
+

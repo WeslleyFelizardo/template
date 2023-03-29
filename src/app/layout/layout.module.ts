@@ -14,6 +14,7 @@ import { ThinLayoutModule } from 'app/layout/layouts/vertical/thin/thin.module';
 import { SettingsModule } from 'app/layout/common/settings/settings.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { BtpMarkdownComponent } from './layouts/markdown/btp-markdown.component';
+import { BtpMarkdownModule } from './layouts/markdown/btp-markdown.module';
 
 const layoutModules = [
     // Empty
@@ -33,13 +34,15 @@ const layoutModules = [
     FuturisticLayoutModule,
     ThinLayoutModule,
     
-    BtpMarkdownComponent
+    BtpMarkdownModule
+
+    
 ];
 
 @NgModule({
     declarations: [
         LayoutComponent,
-        BtpMarkdownComponent
+        //BtpMarkdownComponent
     ],
     imports     : [
         SharedModule,

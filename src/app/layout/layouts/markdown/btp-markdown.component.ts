@@ -1,6 +1,8 @@
 import { Component, Input, OnDestroy, OnInit, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 import { MarkdownComponent, MarkdownService } from 'ngx-markdown';
+
 
 const isAbsolute = new RegExp('(?:^[a-z][a-z0-9+.-]*:|\/\/)', 'i');
 @Component({
@@ -15,7 +17,7 @@ const isAbsolute = new RegExp('(?:^[a-z][a-z0-9+.-]*:|\/\/)', 'i');
 export class BtpMarkdownComponent implements OnInit, OnDestroy {
   @Input()
   url: string;
-  public portalDevelopersDocUrl = "";//environment?.docs?.portalDevelopers;
+  public portalDevelopersDocUrl = 'https://strgbtpapim.blob.core.windows.net/btp-docs/developer-portal/'
 
   @ViewChild('btpmarkdown', { static: false }) public markdowndiv: MarkdownComponent;
 
@@ -23,10 +25,13 @@ export class BtpMarkdownComponent implements OnInit, OnDestroy {
   constructor(
     private markdownService: MarkdownService,
     private renderer: Renderer2,
-    private router: Router
-  ) { }
+    private router: Router,
+    private translocoService: TranslocoService  ) { }
 
   ngOnInit() {
+
+    console.log(this.url);
+
     const me = this;
     me.markdownService.renderer.image = (
       href: string,
@@ -43,62 +48,69 @@ export class BtpMarkdownComponent implements OnInit, OnDestroy {
 
     me.markdownService.renderer.blockquote = (text: string) => {
       let tagClass = '';
+      let type = '';
       if (new RegExp(/\[!NOTE\]/gm).test(text)) {
         text = text.replace('[!NOTE]', '');
+        type = this.translocoService.translate("markdown.observacao");
         tagClass = 'md-note';
         return   `<blockquote class="md-custom-tag ${tagClass}">
                       <p class="custom-headinfo">
                         <span class="material-icons-outlined custom-headinfo-icon">info
                         </span>
-                        <span class="custom-headinfo-title">Note
+                        <span class="custom-headinfo-title">${type}
                         </span>
                       </p>
                       <p class="md-custom-tag-content">${text}</p>
                       </blockquote>`;
       } else if (new RegExp(/\[!TIP\]/igm).test(text)) {
         text = text.replace('[!TIP]', '');
+        type = this.translocoService.translate("markdown.dica");
         tagClass = 'md-tip';
         return   `<blockquote class="md-custom-tag ${tagClass}">
                       <p class="custom-headinfo">
                         <span class="material-icons-outlined custom-headinfo-icon">tips_and_updates
                         </span>
-                        <span class="custom-headinfo-title"> Tip
+                        <span class="custom-headinfo-title">${type}
                         </span>
                       </p>
                       <p class="md-custom-tag-content">${text}</p>
                       </blockquote>`;
       } else if (new RegExp(/\[!IMPORTANT\]/igm).test(text)) {
         text = text.replace('[!IMPORTANT]', '');
+        type = this.translocoService.translate("markdown.importante");
+
          tagClass = 'md-important';
          return   `<blockquote class="md-custom-tag ${tagClass}">
                       <p class="custom-headinfo">
                         <span class="material-icons-outlined custom-headinfo-icon">priority_high
                         </span>
-                        <span class="custom-headinfo-title">Important
+                        <span class="custom-headinfo-title">${type}
                         </span>
                       </p>
                       <p class="md-custom-tag-content">${text}</p>
                       </blockquote>`;
       } else if (new RegExp(/\[!CAUTION\]/igm).test(text)) {
         text = text.replace('[!CAUTION]', '');
+        type = this.translocoService.translate("markdown.cuidado");
          tagClass = 'md-caution';
         return   `<blockquote class="md-custom-tag ${tagClass}">
                      <p class="custom-headinfo">
                        <span class="material-icons-outlined custom-headinfo-icon">report
                        </span>
-                       <span class="custom-headinfo-title">Caution
+                       <span class="custom-headinfo-title">${type}
                        </span>
                      </p>
                      <p class="md-custom-tag-content">${text}</p>
                      </blockquote>`;
       } else if (new RegExp(/\[!WARNING\]/igm).test(text)) {
         text = text.replace('[!WARNING]', '');
+        type = this.translocoService.translate("markdown.aviso");
         tagClass = 'md-warning';
         return   `<blockquote class="md-custom-tag ${tagClass}">
                      <p class="custom-headinfo">
                        <span class="material-icons-outlined custom-headinfo-icon">report
                        </span>
-                       <span class="custom-headinfo-title">Warning
+                       <span class="custom-headinfo-title">${type}
                        </span>
                      </p>
                      <p class="md-custom-tag-content">${text}</p>

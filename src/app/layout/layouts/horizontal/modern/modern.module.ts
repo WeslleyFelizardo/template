@@ -17,6 +17,7 @@ import { ShortcutsModule } from 'app/layout/common/shortcuts/shortcuts.module';
 import { UserModule } from 'app/layout/common/user/user.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { ModernLayoutComponent } from 'app/layout/layouts/horizontal/modern/modern.component';
+import { SchemeModule } from 'app/layout/common/scheme/scheme.module';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { ModernLayoutComponent } from 'app/layout/layouts/horizontal/modern/mode
         FuseLoadingBarModule,
         FuseNavigationModule,
         LanguagesModule,
+        SchemeModule,
         MessagesModule,
         NotificationsModule,
         QuickChatModule,

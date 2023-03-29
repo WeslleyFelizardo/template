@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApexOptions } from 'ng-apexcharts';
 import { ProjectService } from 'app/modules/admin/dashboards/project/project.service';
@@ -7,30 +7,40 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { BehaviorSubject, combineLatest, Subject, takeUntil } from 'rxjs';
 import { Category, Course } from '../../apps/academy/academy.types';
 import { AcademyService } from '../../apps/academy/academy.service';
+import { ApimService } from 'app/core/services/apim.service';
+import { Api } from 'app/core/services/apim.model';
+import { NguCarouselConfig } from '@ngu/carousel';
 
 
 @Component({
     selector       : 'project',
     templateUrl    : './project.component.html',
-    encapsulation  : ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./project.component.scss']
+    //encapsulation  : ViewEncapsulation.None,
+    //changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProjectComponent implements OnInit, OnDestroy
+export class ProjectComponent implements OnInit, OnDestroy, AfterViewInit
 {
-    categories: Category[];
-    courses: Course[];
-    filteredCourses: Course[];
-    filters: {
-        categorySlug$: BehaviorSubject<string>;
-        query$: BehaviorSubject<string>;
-        hideCompleted$: BehaviorSubject<boolean>;
-    } = {
-        categorySlug$ : new BehaviorSubject('all'),
-        query$        : new BehaviorSubject(''),
-        hideCompleted$: new BehaviorSubject(false)
-    };
-
+    public loading = false;
+    public carouselTileItems: Array<any> = [];
+    public carouselTileItems$: BehaviorSubject<any> = new BehaviorSubject(undefined);
+    public carouselSubscription = this.carouselTileItems$.asObservable();
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    apis: Api[];
+    operations: any[] = [];
+
+    public readonly carouselTile: NguCarouselConfig = {
+        grid: { xs: 1, sm: 2, md: 3, lg: 4, all: 0 },
+        slide: 4,
+        speed: 250,
+        point: {
+          visible: true,
+        },
+        load: 2,
+        velocity: 0,
+        touch: true,
+        easing: 'cubic-bezier(0, 0, 0.2, 1)',
+      };
 
     /**
      * Constructor
@@ -39,10 +49,46 @@ export class ProjectComponent implements OnInit, OnDestroy
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
-        private _academyService: AcademyService
+        private apimService: ApimService
     )
     {
     }
+
+    ngAfterViewInit(): void {
+
+        this.apimService.getApisFullTree().then((apis: Api[]) => {
+          this.loading = true;
+          this.apis = apis;
+          this.initCarrousel(apis);
+
+          //this._changeDetectorRef.markForCheck();
+        }).finally(() => {
+            this.loading = false;
+        });
+      }
+
+      private initCarrousel(apis: Api[]) {
+        const me = this;
+        const operationList = this.apimService.getOperationsNames(apis);
+        const operations = []
+        console.log('operations', operationList)
+        for (let i = 0; i < operationList.length; i++) {
+    
+          const o = {
+            title: operationList[i].properties.displayName,
+            text: operationList[i].properties.description,
+            icon: (!!operationList[i]?.properties?.operationImgName) ?
+              `https://strgbtpapim.blob.core.windows.net/operations-images/${operationList[i]?.properties?.operationImgName}` :
+              `./assets/images/services/thumb${Math.floor(
+                Math.random() * 5
+              )}.jpg`,
+          };
+          operations.push(o);
+        }
+
+        me.carouselTileItems$.next(operations);
+
+      }
 
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
@@ -53,53 +99,11 @@ export class ProjectComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        // Get the categories
-        this._academyService.categories$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((categories: Category[]) => {
-                this.categories = categories;
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
-
-        // Get the courses
-        this._academyService.courses$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((courses: Course[]) => {
-                this.courses = this.filteredCourses = courses;
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
-
-        // Filter the courses
-        combineLatest([this.filters.categorySlug$, this.filters.query$, this.filters.hideCompleted$])
-            .subscribe(([categorySlug, query, hideCompleted]) => {
-
-                // Reset the filtered courses
-                this.filteredCourses = this.courses;
-
-                // Filter by category
-                if ( categorySlug !== 'all' )
-                {
-                    this.filteredCourses = this.filteredCourses.filter(course => course.category === categorySlug);
-                }
-
-                // Filter by search query
-                if ( query !== '' )
-                {
-                    this.filteredCourses = this.filteredCourses.filter(course => course.title.toLowerCase().includes(query.toLowerCase())
-                        || course.description.toLowerCase().includes(query.toLowerCase())
-                        || course.category.toLowerCase().includes(query.toLowerCase()));
-                }
-
-                // Filter by completed
-                if ( hideCompleted )
-                {
-                    this.filteredCourses = this.filteredCourses.filter(course => course.progress.completed === 0);
-                }
-            });
+        this.carouselSubscription.subscribe(tiles => {
+            if (!tiles || tiles.length === 0) { return; }
+            this.loading = false;
+            this.carouselTileItems = tiles;
+          });
     }
 
     /**
@@ -116,36 +120,7 @@ export class ProjectComponent implements OnInit, OnDestroy
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Filter by search query
-     *
-     * @param query
-     */
-    filterByQuery(query: string): void
-    {
-        this.filters.query$.next(query);
-    }
-
-    /**
-     * Filter by category
-     *
-     * @param change
-     */
-    filterByCategory(change: MatSelectChange): void
-    {
-        this.filters.categorySlug$.next(change.value);
-    }
-
-    /**
-     * Show/hide completed courses
-     *
-     * @param change
-     */
-    toggleCompleted(change: MatSlideToggleChange): void
-    {
-        this.filters.hideCompleted$.next(change.checked);
-    }
-
+  
     /**
      * Track by function for ngFor loops
      *

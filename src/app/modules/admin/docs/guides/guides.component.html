@@ -10,7 +10,7 @@
             [opened]="drawerOpened"
             #matDrawer>
 
-            <fuse-vertical-navigation
+            <fuse-vertical-navigation  *ngIf="apiMenuList"
                 [navigation]="menuData"
                 [inner]="true"
                 [mode]="'side'"

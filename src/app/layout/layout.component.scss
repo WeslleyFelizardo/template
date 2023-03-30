@@ -23,5 +23,43 @@ layout {
             width: 100%;
         }
     }
+
+    
+
+
+
+.ocean {
+    height: 15%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(-29deg, #283c86 0%, #45a247 100%) !important
+  }
+  
+  .wave {
+    background: url('/assets/images/svg/wave.svg') repeat-x;
+    position: absolute;
+    bottom: -20px;
+    width: 6400px;
+    height: 198px;
+    animation: wave 22s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  
+  
+  @keyframes wave {
+    0% {
+      margin-left: 0;
+    }
+    100% {
+      margin-left: -1600px;
+    }
+  }
+
+  .endWave{
+      display:none;
+  }
 }
 

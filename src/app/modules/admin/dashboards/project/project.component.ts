@@ -10,6 +10,7 @@ import { AcademyService } from '../../apps/academy/academy.service';
 import { ApimService } from 'app/core/services/apim.service';
 import { Api } from 'app/core/services/apim.model';
 import { NguCarouselConfig } from '@ngu/carousel';
+import { AuthService } from 'app/core/auth/auth.service';
 
 
 @Component({
@@ -49,9 +50,11 @@ export class ProjectComponent implements OnInit, OnDestroy, AfterViewInit
         private _activatedRoute: ActivatedRoute,
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
-        private apimService: ApimService
+        private apimService: ApimService,
+        private auth: AuthService
     )
     {
+      //this.auth.signIn({email: 'hughes.brian@company.com', password: 'admin'});
     }
 
     ngAfterViewInit(): void {

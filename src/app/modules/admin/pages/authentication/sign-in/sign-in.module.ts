@@ -15,11 +15,16 @@ import { SignInFullscreenComponent } from 'app/modules/admin/pages/authenticatio
 import { SignInFullscreenReversedComponent } from 'app/modules/admin/pages/authentication/sign-in/fullscreen-reversed/sign-in.component';
 import { SignInSplitScreenComponent } from 'app/modules/admin/pages/authentication/sign-in/split-screen/sign-in.component';
 import { SignInSplitScreenReversedComponent } from 'app/modules/admin/pages/authentication/sign-in/split-screen-reversed/sign-in.component';
+import { SigninOidcComponent } from './oidc/signin-oidc.component';
 
 const routes: Routes = [
     {
         path    : 'sign-in',
         children: [
+            {
+                path     : 'oidc',
+                component: SigninOidcComponent
+            },
             {
                 path     : 'classic',
                 component: SignInClassicComponent
@@ -60,7 +65,8 @@ const routes: Routes = [
         SignInFullscreenComponent,
         SignInFullscreenReversedComponent,
         SignInSplitScreenComponent,
-        SignInSplitScreenReversedComponent
+        SignInSplitScreenReversedComponent,
+        SigninOidcComponent
     ],
     imports     : [
         RouterModule.forChild(routes),

@@ -3,6 +3,7 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
 import { catchError, Observable, throwError } from 'rxjs';
 import { AuthService } from 'app/core/auth/auth.service';
 import { AuthUtils } from 'app/core/auth/auth.utils';
+import { OpenIdConnectService } from './open-id-connect.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor
@@ -10,7 +11,7 @@ export class AuthInterceptor implements HttpInterceptor
     /**
      * Constructor
      */
-    constructor(private _authService: AuthService)
+    constructor(private _authService: AuthService, private auth: OpenIdConnectService)
     {
     }
 
@@ -22,9 +23,9 @@ export class AuthInterceptor implements HttpInterceptor
      */
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
     {
+        const accessToken = this.auth?.usuario?.access_token;
         // Clone the request object
         let newReq = req.clone();
-
         // Request
         //
         // If the access token didn't expire, add the Authorization header.
@@ -33,12 +34,12 @@ export class AuthInterceptor implements HttpInterceptor
         // for the protected API routes which our response interceptor will
         // catch and delete the access token from the local storage while logging
         // the user out from the app.
-        if ( this._authService.accessToken && !AuthUtils.isTokenExpired(this._authService.accessToken) )
+        if (this.auth.usuarioDisponivel)
         {
             if (!req.url.includes('https://strgbtpapim.blob.core.windows.net'))
             {
                 newReq = req.clone({
-                    headers: req.headers.set('Authorization', 'Bearer ' + this._authService.accessToken)
+                    headers: req.headers.set('Authorization', 'Bearer ' + accessToken)
                 });
             }
             

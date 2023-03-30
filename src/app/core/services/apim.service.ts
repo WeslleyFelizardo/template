@@ -96,8 +96,7 @@ export class ApimService {
       }),
     };
     return this.httpClient.get(
-      `http://localhost:8080/products`,
-      options
+      `http://localhost:8080/products`
     );
   }
   getMarkdownDemo() {

@@ -18,6 +18,7 @@ import { UserModule } from 'app/layout/common/user/user.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { ModernLayoutComponent } from 'app/layout/layouts/horizontal/modern/modern.component';
 import { SchemeModule } from 'app/layout/common/scheme/scheme.module';
+import { LoginModule } from 'app/layout/common/login/login.module';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { SchemeModule } from 'app/layout/common/scheme/scheme.module';
         FuseNavigationModule,
         LanguagesModule,
         SchemeModule,
+        LoginModule,
         MessagesModule,
         NotificationsModule,
         QuickChatModule,

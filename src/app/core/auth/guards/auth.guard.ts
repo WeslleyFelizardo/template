@@ -56,7 +56,7 @@ export class AuthGuard implements CanMatch
                     const redirectURL = `/${segments.join('/')}`;
                     const urlTree = this._router.parseUrl(`sign-in?redirectURL=${redirectURL}`);
 
-                    return of(urlTree);
+                    return of(true);
                 }
 
                 // Allow the access

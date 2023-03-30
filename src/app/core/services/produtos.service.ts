@@ -17,7 +17,6 @@ export class ProdutosService {
 
   constructor(
     private httpClient: HttpClient,
-    private produtosService: ProdutosService
   ) {
     let me = this;
     this.getProdutos().subscribe((produtos) => {
@@ -72,23 +71,23 @@ export class ProdutosService {
   async getProdutosRecursos() {
     return await this.httpClient
       .get<{ plano: string; recurso: string }[]>(
-        `http://localhost:8080produtos/recursos`
+        `http://localhost:8080/produtos/recursos`
       )
       .toPromise();
   }
   getProdutos() {
     return this.httpClient.get<any>(
-      `http://localhost:8080produtos/detalhes`
+      `http://localhost:8080/produtos/detalhes`
     );
   }
   subscreverPlano(plano) {
     if(plano == undefined ){ return throwError('Erro ao identificar o seu plano ') }
-    return this.httpClient.patch<any>(`http://localhost:8080produtos?planoNovo=${plano}`,{});
+    return this.httpClient.patch<any>(`http://localhost:8080/produtos?planoNovo=${plano}`,{});
   }
 
   getUserSubscriptionsPAT() {
     return this.httpClient.get<any>(
-      `http://localhost:8080produtos/minhas-assinaturas`
+      `http://localhost:8080/produtos/minhas-assinaturas`
     );
   }
 }

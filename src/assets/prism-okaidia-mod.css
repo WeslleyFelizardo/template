@@ -6,7 +6,7 @@
 
 code[class*="language-"],
 pre[class*="language-"] {
-	color: #200a12;
+	color: #7c9746;
 	background: none;
 	text-shadow: 0 1px rgba(0, 0, 0, 0.3);
 	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
@@ -29,7 +29,7 @@ pre[class*="language-"] {
 
 code[class*="language-console"],
 pre[class*="language-console"] {
-	color: #000000;
+	color: #7c9746;
 	background: none; 
 	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 	font-size: 1em;
@@ -94,7 +94,7 @@ pre[class*="language-"] {
 
 .token.boolean,
 .token.number {
-	color: #0b0b0c;
+	color: #5858ee;
 }
 
 .token.selector,
@@ -112,7 +112,7 @@ pre[class*="language-"] {
 .language-css .token.string,
 .style .token.string,
 .token.variable {
-	color: #000000;
+	color: #000000
 }
 
 .token.atrule,
@@ -154,6 +154,8 @@ pre[class*="language-"] {
 	text-rendering: optimizelegibility;
 	font-size: 1.11625rem;
 }
+
+
 .md-note{
 	background-color: #EFD9FD;
 }
@@ -180,3 +182,35 @@ pre[class*="language-"] {
 .custom-headinfo-title{
 	font-weight: 600;
 }
+
+
+
+
+.dark .md-note{
+    background-color: rgb(59, 46, 88);
+  }
+  .dark .md-important{
+    background-color: rgb(0, 65, 115)
+  }
+  .dark .md-tip{
+    background-color:  rgb(5, 75, 22);
+  }
+  .dark .md-caution{
+    background-color: rgb(99, 0, 1);
+  }
+  .dark .md-warning{
+    background-color: rgb(106, 75, 22);
+  }
+
+  .dark :not(pre) > code[class*="language-"], pre[class*="language-"] {
+    background: #7c5d5d14;
+    
+  } 
+
+
+
+  .dark .token.property, .token.tag, .token.constant, .token.symbol, .token.deleted {
+	  color: #ffffff;
+  }
+
+

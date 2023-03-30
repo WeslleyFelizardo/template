@@ -4,6 +4,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject, takeUntil } from 'rxjs';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
+import { OpenIdConnectService } from 'app/core/auth/open-id-connect.service';
 
 @Component({
     selector       : 'user',
@@ -29,7 +30,8 @@ export class UserComponent implements OnInit, OnDestroy
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
-        private _userService: UserService
+        private _userService: UserService,
+        public auth: OpenIdConnectService
     )
     {
     }
@@ -43,6 +45,7 @@ export class UserComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        console.log('Usuario', this.auth.usuario);
         // Subscribe to user changes
         this._userService.user$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -93,6 +96,11 @@ export class UserComponent implements OnInit, OnDestroy
      */
     signOut(): void
     {
-        this._router.navigate(['/sign-out']);
+        this.auth.dispararSignOut();
+    }
+
+    onNagigateSettings() {
+        this._router.navigate(['./pages/settings']);
+
     }
 }

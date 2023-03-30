@@ -7,6 +7,7 @@ import { UtilService } from "app/core/services/util.service";
 import _ from "lodash";
 import { BehaviorSubject } from "rxjs";
 
+
 @Component({
     selector   : 'endpoint-request',
     templateUrl: './endpoint-request.html'
@@ -27,6 +28,7 @@ export class EndpointRequestComponent implements OnInit, OnDestroy
     private _apiList: any;
     operationProperties: any;
     expandedResponse = true;
+
 
     @Input()
     set selectedEndpointData(data: any) {

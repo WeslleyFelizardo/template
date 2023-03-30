@@ -3,6 +3,7 @@
 /*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
 /* ----------------------------------------------------------------------------------------------------- */
 
-.tile {
-    box-shadow: none;
+
+.theme-teal .light .mat-mdc-snack-bar-container, .theme-teal.light .mat-mdc-snack-bar-container .snackbar-info {
+    background-color: yellow !important;
 }

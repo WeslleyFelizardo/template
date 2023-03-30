@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { MenuDocsService } from './menu-docs.service';
 import { ApimService } from './apim.service';
 import { UtilService } from './util.service';
+import { NotificationService } from './notification.service';
+import { ErrorService } from './error.service';
 
 @NgModule({
     imports  : [
@@ -10,7 +12,9 @@ import { UtilService } from './util.service';
     providers: [
         ApimService,
         MenuDocsService,
-        UtilService
+        UtilService,
+        NotificationService,
+        ErrorService
     ]
 })
 export class ServicesModule

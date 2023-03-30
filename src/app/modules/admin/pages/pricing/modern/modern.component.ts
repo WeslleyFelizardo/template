@@ -85,7 +85,6 @@ export class PricingModernComponent implements OnInit, AfterViewInit
       //this.loadingPlanos = false;
     })
     .then((data) => {
-      console.log("xxxgetProdutosRecursos,", data);
       this.recursosPlano = data;
 
       this.produtosService.perfilPlanoList$
@@ -125,9 +124,6 @@ export class PricingModernComponent implements OnInit, AfterViewInit
     return recursosPerfil;
   }
   public getCellRecursoPlano(recurso, perfilSelecionado, plano) {
-    console.log('recurso', recurso);
-    console.log('perfilSelecionado', perfilSelecionado);
-    console.log('plano', plano);
 
     return recurso.value.some(x => x.plano == `${perfilSelecionado} ${plano}`);
   }
@@ -238,13 +234,8 @@ export class PricingModernComponent implements OnInit, AfterViewInit
     this.changeDetector.detectChanges();
   }
 
-  register(): void
+  onSignup(): void
     {
-        // this.matDialog.open({}, {
-        //     autoFocus: false,
-        //     data     : {
-        //         note: {}
-        //     }
-        // });
+        this.router.navigate(['./pages/authentication/sign-up/classic']);
     }
 }

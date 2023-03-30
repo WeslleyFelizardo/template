@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { EmptyLayoutModule } from 'app/layout/layouts/empty/empty.module';
 import { CenteredLayoutModule } from 'app/layout/layouts/horizontal/centered/centered.module';
@@ -15,6 +15,7 @@ import { SettingsModule } from 'app/layout/common/settings/settings.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { BtpMarkdownComponent } from './layouts/markdown/btp-markdown.component';
 import { BtpMarkdownModule } from './layouts/markdown/btp-markdown.module';
+import { ErrorsHandler } from 'app/core/handlers/errorhandler';
 
 const layoutModules = [
     // Empty
@@ -52,6 +53,8 @@ const layoutModules = [
     exports     : [
         LayoutComponent,
         ...layoutModules
+    ],
+    providers: [
     ]
 })
 export class LayoutModule

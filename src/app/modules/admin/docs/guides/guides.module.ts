@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -35,6 +35,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { EndpointRequestComponent } from './getting-started/endpoint-spec/components/endpoint-request/endpoint-request';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ErrorsHandler } from 'app/core/handlers/errorhandler';
 
 @NgModule({
     declarations: [

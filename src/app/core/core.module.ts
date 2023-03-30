@@ -1,7 +1,8 @@
-import { NgModule, Optional, SkipSelf } from '@angular/core';
+import { ErrorHandler, NgModule, Optional, SkipSelf } from '@angular/core';
 import { AuthModule } from 'app/core/auth/auth.module';
 import { IconsModule } from 'app/core/icons/icons.module';
 import { TranslocoCoreModule } from 'app/core/transloco/transloco.module';
+import { ErrorsHandler } from './handlers/errorhandler';
 import { ServicesModule } from './services/services.module';
 
 @NgModule({
@@ -13,7 +14,7 @@ import { ServicesModule } from './services/services.module';
     ],
     exports: [ServicesModule],
     providers: [
-        
+
     ]
 })
 export class CoreModule

@@ -3,6 +3,8 @@ import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angul
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { NotificationService } from 'app/core/services/notification.service';
+import { ProfileDevParceiroService } from 'app/core/user/profile-dev-parceiro.service';
 
 @Component({
     selector     : 'sign-up-classic',
@@ -26,7 +28,9 @@ export class SignUpClassicComponent implements OnInit
      */
     constructor(
         private _authService: AuthService,
-        private _formBuilder: UntypedFormBuilder
+        private _formBuilder: UntypedFormBuilder,
+        private serviceProfileDevParceiro: ProfileDevParceiroService,
+        private _notificacao: NotificationService
     )
     {
     }
@@ -40,14 +44,20 @@ export class SignUpClassicComponent implements OnInit
      */
     ngOnInit(): void
     {
+        //this._notificacao.notificar('teste');
+        this._notificacao.notificarSucesso('sucesso');
+        this._notificacao.notificarErro('erro');
+        this._notificacao.notificarInfo('info');
         // Create the form
         this.signUpForm = this._formBuilder.group({
-                name      : ['', Validators.required],
+                nome      : ['', Validators.required],
+                sobrenome      : ['', Validators.required],
                 email     : ['', [Validators.required, Validators.email]],
-                password  : ['', Validators.required],
-                company   : [''],
-                agreements: ['', Validators.requiredTrue]
-            }
+                confirmacaoEmail     : ['', [Validators.required, Validators.email]],
+                senha  : ['', Validators.required],
+                confirmacaoSenha  : ['', Validators.required],
+                empresa   : ['']
+          }
         );
     }
 
@@ -60,5 +70,26 @@ export class SignUpClassicComponent implements OnInit
      */
     signUp(): void
     {
+        const saveObject = {
+            nome: this.signUpForm['nome'],
+            sobrenome: this.signUpForm['sobrenome'],
+            emailCorporativo: this.signUpForm['email'],
+            senha: this.signUpForm['senha'],
+            confirmacaoSenha: this.signUpForm['senhaConfirmacao'],
+            empresa: this.signUpForm['nomeEmpresa'],
+            perfil: this.signUpForm['perfil'],
+            plano: this.signUpForm['plano'],
+          };
+
+          this.serviceProfileDevParceiro
+            .inserirDesenvolvedorParceiro(saveObject)
+            .subscribe(
+              async (data: any) => {
+                        
+              },
+              (err) => {
+               console.log(err);
+              }
+            );
     }
 }

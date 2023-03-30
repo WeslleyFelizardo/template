@@ -1,4 +1,4 @@
-import { NgModule, SecurityContext } from '@angular/core';
+import { ErrorHandler, NgModule, SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
@@ -13,6 +13,7 @@ import { AppComponent } from 'app/app.component';
 import { appRoutes } from 'app/app.routing';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { NguCarouselModule } from '@ngu/carousel';
+import { ErrorsHandler } from './core/handlers/errorhandler';
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -51,6 +52,9 @@ const routerConfig: ExtraOptions = {
              },
            },
          }),
+    ],
+    providers: [
+        { provide: ErrorHandler, useClass: ErrorsHandler }
     ],
     bootstrap   : [
         AppComponent

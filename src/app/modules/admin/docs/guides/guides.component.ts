@@ -169,7 +169,7 @@ export class GuidesComponent implements OnInit, OnDestroy
 
                 this.apis = apisResponse;
                 this.apis$.next(apisResponse);
-            }, (error) => { console.error(error); });
+            });
 
            
 

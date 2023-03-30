@@ -11,6 +11,7 @@ export const environment = {
       portalDevelopers: 'https://strgbtpapim.blob.core.windows.net/btp-docs/developer-portal/',
       storageOperationImages: 'https://strgbtpapim.blob.core.windows.net/operations-images/'
     },
+    
     oidcSettings: {
       authority: 'https://idp-qas.btp.com.br:44301/',
       client_id: 'btp_portal_desenvolvedor',

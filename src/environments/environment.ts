@@ -13,7 +13,7 @@ export const environment = {
     },
     
     oidcSettings: {
-      authority: 'https://idp-qas.btp.com.br:44301/',
+      authority: 'https://localhost:44300/',
       client_id: 'btp_portal_desenvolvedor',
       redirect_uri: 'http://localhost:4200/pages/authentication/sign-in/oidc',
       scope: 'openid profile webhooks_api developer_api',

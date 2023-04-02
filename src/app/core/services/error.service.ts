@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from './notification.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class ErrorService {
@@ -12,15 +13,19 @@ export class ErrorService {
   ) { }
 
   tratarErroHttp(error: HttpErrorResponse) {
-    console.log('handler erro')
+    let mensagemErro = '';
+
     if (error.status === 0) {
-      return this.notificationService.notificarErro('Não foi possível se comunicar com o servidor');
+      mensagemErro = 'Não foi possível se comunicar com o servidor';
     } else if (error.status >= 400 && error.status < 500) {
-      return this.notificationService.notificarInfo(error.error);
+      mensagemErro = error.error.errors[0];
     } else if (error.status >= 500 && error.status < 600) {
-      if (error.status === 502) { return this.notificationService.notificarErro('Não foi possível se comunicar com o servidor'); }
-      return this.notificationService.notificarErro(error.error);
+      if (error.status === 502) { mensagemErro = 'Não foi possível se comunicar com o servidor'; }
+      mensagemErro = error.error.errors[0];
     }
+
+    return mensagemErro;
+    
   }
 
   tratarErroHttpComRetorno(error: string, route: ActivatedRoute) {

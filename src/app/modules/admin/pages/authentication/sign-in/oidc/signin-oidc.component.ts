@@ -32,7 +32,6 @@ export class SigninOidcComponent implements OnInit
   ngOnInit(): void {
     this.inscricao = this.openIdConnectService.usuarioCarregado$.subscribe(
       usuarioCarregado => {
-
         if (usuarioCarregado) {
           const usuarioLogado = this.openIdConnectService.usuario;
           this.router.navigate(['/']);

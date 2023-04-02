@@ -1,0 +1,173 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+    <form [formGroup]="webHooksForm">
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Configuração das Credenciais Webhook</div>
+            <div class="text-secondary">Para esse tipo de integração, é necessário que você informe qual é o endpoint e as credenciais que nossa plataforma deve utilizar para chamar sua API.</div>
+        </div>
+
+        <!-- Divider -->
+        <div class="my-10 border-t"></div>
+
+      
+
+        <div class="w-full mt-8 ">
+              <!-- Username -->
+                <mat-form-field
+                    class="fuse-mat-emphasized-affix w-full form-control"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Endpoint</mat-label>
+                    <div
+                        class="text-secondary"
+                        matPrefix>
+                        https://
+                    </div>
+                    <input
+                        [formControlName]="'endpoint'"
+                        matInput>
+                </mat-form-field>
+            <!-- Title -->
+                <mat-form-field
+                    class="w-full mt-4"
+                    [subscriptSizing]="'dynamic'">
+                    <mat-label>Usuário</mat-label>
+                    
+                    <input
+                        class="form-control"
+                        [formControlName]="'usuario'"
+                        matInput>
+                </mat-form-field>
+
+                <!-- Password field -->
+        <mat-form-field class="w-full mt-4">
+            <mat-label>Senha</mat-label>
+            <input
+                id="senha"
+                matInput
+                type="password"
+                [formControlName]="'senha'"
+                #senhaField>
+            <button
+                mat-icon-button
+                type="button"
+                (click)="senhaField.type === 'password' ? senhaField.type = 'text' : senhaField.type = 'password'"
+                matSuffix>
+                <mat-icon
+                    class="icon-size-5"
+                    *ngIf="senhaField.type === 'password'"
+                    [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                <mat-icon
+                    class="icon-size-5"
+                    *ngIf="senhaField.type === 'text'"
+                    [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+            </button>
+            <mat-error>
+                Password is required
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+            <mat-label>Segredo</mat-label>
+            <input
+                id="segredo"
+                matInput
+                type="password"
+                [formControlName]="'segredo'"
+                #segredoField>
+            <button
+                mat-icon-button
+                type="button"
+                (click)="segredoField.type === 'password' ? segredoField.type = 'text' : segredoField.type = 'password'"
+                matSuffix>
+                <mat-icon
+                    class="icon-size-5"
+                    *ngIf="segredoField.type === 'password'"
+                    [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+                <mat-icon
+                    class="icon-size-5"
+                    *ngIf="segredoField.type === 'text'"
+                    [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
+            </button>
+            <mat-error  *ngIf="webHooksForm.get('segredo').hasError('required')">
+                Password is required
+            </mat-error>
+        </mat-form-field>
+           
+
+            
+        </div>
+
+        <fuse-alert *ngIf="errorWebhookForm.display"
+        [type]="'error'"
+        [appearance]="'border'">
+        <span fuseAlertTitle>Ops, problemas encontrado...</span>
+        {{errorWebhookForm.message}}
+        </fuse-alert>
+
+        <fuse-alert *ngIf="sucessWebhookForm"
+        [type]="'success'"
+        [appearance]="'border'">
+        <span fuseAlertTitle>Operação executada.</span>
+        Seus dados foram armazenados com sucesso.
+        </fuse-alert> 
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button
+                mat-stroked-button
+                type="button">
+                Cancel
+            </button>
+            <button
+                class="ml-4"
+                mat-flat-button
+                type="button"
+                [color]="'primary'"
+                (click)="guardaConfiguracaoWebhookParceiro()">
+                Save
+            </button>
+        </div>
+
+
+    </form>
+    <!-- Divider -->
+    <div class="mt-11 mb-10 border-t"></div>   
+    
+        <!-- Section -->
+        <div class="w-full pt-8">
+            <div class="text-xl">Configuração do Webhook</div>
+            <div class="text-secondary">Para esse tipo de integração, é necessário que você informe qual é o endpoint e as credenciais que nossa plataforma deve utilizar para chamar sua API.</div>
+        </div>
+
+        <!-- Divider -->
+        <div class="my-10 border-t"></div>
+
+        <div *ngIf="webHooksDisponiveis">
+            <div *ngFor="let item of webHooksDisponiveis;  let i = index" class="w-full mt-8">
+                <mat-accordion >
+                    <mat-expansion-panel class="mat-elevation-z0 pt-1 m-0" [expanded]="false">
+                        <mat-expansion-panel-header [collapsedHeight]="'56px'">
+                            <mat-panel-title>
+                                <mat-icon
+                    class="icon-size-5"
+                    svgIcon="apps"
+                    matPrefix></mat-icon>
+                                <span style="padding-inline: 10px;">{{item.descricao}}</span>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-panel-description class="pt-2">
+                            
+                        </mat-panel-description>
+                        Teste
+                        
+                        <sf-form [schema]="mySchema"></sf-form>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </div>
+
+
+</div>

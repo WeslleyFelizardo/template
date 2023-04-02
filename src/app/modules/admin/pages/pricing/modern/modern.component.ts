@@ -234,8 +234,8 @@ export class PricingModernComponent implements OnInit, AfterViewInit
     this.changeDetector.detectChanges();
   }
 
-  onSignup(): void
+  onSignup(plano: string, perfil: string): void
     {
-        this.router.navigate(['./pages/authentication/sign-up/classic']);
+        this.router.navigate(['./pages/authentication/sign-up/classic'], { state: { plano: plano , perfil: perfil } });
     }
 }

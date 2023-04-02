@@ -16,6 +16,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { BtpMarkdownComponent } from './layouts/markdown/btp-markdown.component';
 import { BtpMarkdownModule } from './layouts/markdown/btp-markdown.module';
 import { ErrorsHandler } from 'app/core/handlers/errorhandler';
+import { LoadingInlineModule } from './layouts/loading-inline/loading-inline.module';
 
 const layoutModules = [
     // Empty
@@ -35,7 +36,8 @@ const layoutModules = [
     FuturisticLayoutModule,
     ThinLayoutModule,
     
-    BtpMarkdownModule
+    BtpMarkdownModule,
+    LoadingInlineModule
 
     
 ];

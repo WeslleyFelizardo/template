@@ -9,6 +9,9 @@
                 <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
                     Cadastra-se em nossa plataforma
                 </h2>
+                <div class="max-w-xl mt-2 text-xl text-secondary">
+                    Crie seu cadastro, inicie sua jornada de integração conosco e gerencie suas credenciais de acesso.
+                </div>
             </div>
         </div>
         <!-- Actions -->
@@ -17,10 +20,15 @@
 
     <!-- Main -->
     <div class="flex-auto -mt-16 p-6 sm:p-10 rounded-t-2xl shadow bg-card">
-
+        <fuse-alert *ngIf="cadastroSucesso"
+        [type]="'success'"
+        [appearance]="'border'">
+        <span fuseAlertTitle>Conta criada com sucesso</span>
+        Clique no botão 'Entrar' no canto superior direito e explore nossa plataforma!
+        </fuse-alert>
         <!-- CONTENT GOES HERE -->
         <!-- Sign Up form -->
-        <form
+        <form *ngIf="!cadastroSucesso"
         class="mt-8"
         [formGroup]="signUpForm">
 
@@ -73,7 +81,7 @@
             <mat-error *ngIf="signUpForm.get('confirmacaoEmail').hasError('required')">
                 Email address is required
             </mat-error>
-            <mat-error *ngIf="signUpForm.get('confirmacaoEmail').hasError('confirmacaoEmail')">
+            <mat-error *ngIf="signUpForm.get('confirmacaoEmail').hasError('email')">
                 Please enter a valid email address
             </mat-error>
         </mat-form-field>
@@ -86,19 +94,19 @@
                 matInput
                 type="password"
                 [formControlName]="'senha'"
-                #passwordField>
+                #senhaField>
             <button
                 mat-icon-button
                 type="button"
-                (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                (click)="senhaField.type === 'password' ? senhaField.type = 'text' : senhaField.type = 'password'"
                 matSuffix>
                 <mat-icon
                     class="icon-size-5"
-                    *ngIf="passwordField.type === 'password'"
+                    *ngIf="senhaField.type === 'password'"
                     [svgIcon]="'heroicons_solid:eye'"></mat-icon>
                 <mat-icon
                     class="icon-size-5"
-                    *ngIf="passwordField.type === 'text'"
+                    *ngIf="senhaField.type === 'text'"
                     [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
             </button>
             <mat-error>
@@ -113,23 +121,26 @@
                 matInput
                 type="password"
                 [formControlName]="'confirmacaoSenha'"
-                #passwordField>
+                #confirmacaoSenhaField>
             <button
                 mat-icon-button
                 type="button"
-                (click)="passwordField.type === 'password' ? passwordField.type = 'text' : passwordField.type = 'password'"
+                (click)="confirmacaoSenhaField.type === 'password' ? confirmacaoSenhaField.type = 'text' : confirmacaoSenhaField.type = 'password'"
                 matSuffix>
                 <mat-icon
                     class="icon-size-5"
-                    *ngIf="passwordField.type === 'password'"
+                    *ngIf="confirmacaoSenhaField.type === 'password'"
                     [svgIcon]="'heroicons_solid:eye'"></mat-icon>
                 <mat-icon
                     class="icon-size-5"
-                    *ngIf="passwordField.type === 'text'"
+                    *ngIf="confirmacaoSenhaField.type === 'text'"
                     [svgIcon]="'heroicons_solid:eye-off'"></mat-icon>
             </button>
-            <mat-error>
+            <mat-error  *ngIf="signUpForm.get('confirmacaoSenha').hasError('required')">
                 Password is required
+            </mat-error>
+            <mat-error *ngIf="signUpForm.get('confirmacaoSenha').hasError('senhaConfirmacao')">
+               Senha não é igual
             </mat-error>
         </mat-form-field>
 
@@ -140,6 +151,9 @@
                 id="empresa"
                 matInput
                 [formControlName]="'empresa'">
+                <mat-error *ngIf="signUpForm.get('empresa').hasError('required')">
+                    Empresa address is required
+                </mat-error>
         </mat-form-field>
 
         <!-- ToS and PP -->
@@ -161,6 +175,8 @@
             </mat-checkbox> -->
         </div>
 
+      
+
         <!-- Submit button -->
         <button
             class="fuse-mat-button-large w-full mt-6"
@@ -169,7 +185,7 @@
             [disabled]="signUpForm.disabled"
             (click)="signUp()">
             <span *ngIf="!signUpForm.disabled">
-                Cadastrar
+                Criar um nova conta
             </span>
             <mat-progress-spinner
                 *ngIf="signUpForm.disabled"

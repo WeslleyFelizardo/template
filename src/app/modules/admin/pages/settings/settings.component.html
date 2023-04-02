@@ -75,26 +75,30 @@
                 <!-- Load settings panel -->
                 <div class="mt-8">
                     <ng-container [ngSwitch]="selectedPanel">
+                         <!-- Account -->
+                         <ng-container *ngSwitchCase="'api-keys'">
+                            <settings-api-keys></settings-api-keys>
+                        </ng-container>
                         <!-- Account -->
-                        <ng-container *ngSwitchCase="'account'">
-                            <settings-account></settings-account>
+                        <ng-container *ngSwitchCase="'web-hooks'">
+                            <settings-web-hooks></settings-web-hooks>
                         </ng-container>
                         <!-- Security -->
-                        <ng-container *ngSwitchCase="'security'">
+                        <!-- <ng-container *ngSwitchCase="'security'">
                             <settings-security></settings-security>
-                        </ng-container>
+                        </ng-container> -->
                         <!-- Plan & Billing -->
-                        <ng-container *ngSwitchCase="'plan-billing'">
+                        <!-- <ng-container *ngSwitchCase="'plan-billing'">
                             <settings-plan-billing></settings-plan-billing>
-                        </ng-container>
+                        </ng-container> -->
                         <!-- Notifications -->
-                        <ng-container *ngSwitchCase="'notifications'">
+                        <!-- <ng-container *ngSwitchCase="'notifications'">
                             <settings-notifications></settings-notifications>
-                        </ng-container>
+                        </ng-container> -->
                         <!-- Team -->
-                        <ng-container *ngSwitchCase="'team'">
+                        <!-- <ng-container *ngSwitchCase="'team'">
                             <settings-team></settings-team>
-                        </ng-container>
+                        </ng-container> -->
                     </ng-container>
                 </div>
 

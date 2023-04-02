@@ -213,4 +213,14 @@ pre[class*="language-"] {
 	  color: #ffffff;
   }
 
+.dark
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string,
+.token.variable {
+	color: #ffffff;
+}
+
 

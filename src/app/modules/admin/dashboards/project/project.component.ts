@@ -11,6 +11,8 @@ import { ApimService } from 'app/core/services/apim.service';
 import { Api } from 'app/core/services/apim.model';
 import { NguCarouselConfig } from '@ngu/carousel';
 import { AuthService } from 'app/core/auth/auth.service';
+import { ErrorDTO } from 'app/core/DTOs/errorDTO';
+import { ErrorService } from 'app/core/services/error.service';
 
 
 @Component({
@@ -27,6 +29,8 @@ export class ProjectComponent implements OnInit, OnDestroy, AfterViewInit
     public carouselTileItems$: BehaviorSubject<any> = new BehaviorSubject(undefined);
     public carouselSubscription = this.carouselTileItems$.asObservable();
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+    public errorListEndpoints: ErrorDTO = new ErrorDTO();
     apis: Api[];
     operations: any[] = [];
 
@@ -51,7 +55,8 @@ export class ProjectComponent implements OnInit, OnDestroy, AfterViewInit
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
         private apimService: ApimService,
-        private auth: AuthService
+        private auth: AuthService,
+        private _errorService: ErrorService
     )
     {
       //this.auth.signIn({email: 'hughes.brian@company.com', password: 'admin'});
@@ -59,15 +64,7 @@ export class ProjectComponent implements OnInit, OnDestroy, AfterViewInit
 
     ngAfterViewInit(): void {
 
-        this.apimService.getApisFullTree().then((apis: Api[]) => {
-          this.loading = true;
-          this.apis = apis;
-          this.initCarrousel(apis);
-
-          //this._changeDetectorRef.markForCheck();
-        }).finally(() => {
-            this.loading = false;
-        });
+        
       }
 
       private initCarrousel(apis: Api[]) {
@@ -102,6 +99,19 @@ export class ProjectComponent implements OnInit, OnDestroy, AfterViewInit
      */
     ngOnInit(): void
     {
+        this.errorListEndpoints.reset();
+        this.apimService.getApisFullTree().then((apis: Api[]) => {
+          this.loading = true;
+          this.apis = apis;
+          this.initCarrousel(apis);
+
+          //this._changeDetectorRef.markForCheck();
+        }, (error) => {
+          this.errorListEndpoints.show(this._errorService.tratarErroHttp(error))
+        }).finally(() => {
+            this.loading = false;
+        });
+
         this.carouselSubscription.subscribe(tiles => {
             if (!tiles || tiles.length === 0) { return; }
             this.loading = false;

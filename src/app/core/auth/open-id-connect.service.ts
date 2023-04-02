@@ -33,6 +33,7 @@ export class OpenIdConnectService {
     // this.usuarioCarregado$.next(true);
 
     this.gerenciadorUsuario.events.addUserLoaded((usuario) => { 
+      console.log("Usuario carregado.", usuario);
 
       if (!environment.production) {
         console.log("Usuario carregado.", usuario);
@@ -81,6 +82,8 @@ export class OpenIdConnectService {
       if (!environment.production) {
          console.log('Redirecionamento para a signin disparado.');
       }
+      console.log('Redirecionamento para a signin disparado.');
+
     });
   }
 
@@ -110,7 +113,7 @@ export class OpenIdConnectService {
       })
       .catch((err) => {
         console.error('Erroooooooor', err);
-        this.router.navigate([""]);
+        //this.router.navigate([""]);
       });
     // }''
 

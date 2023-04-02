@@ -14,6 +14,11 @@ import { appRoutes } from 'app/app.routing';
 import { MarkdownModule, MarkedOptions } from 'ngx-markdown';
 import { NguCarouselModule } from '@ngu/carousel';
 import { ErrorsHandler } from './core/handlers/errorhandler';
+import { DefaultWidgetRegistry, SchemaFormModule, WidgetRegistry } from 'ngx-schema-form';
+import { AgGridModule } from 'ag-grid-angular';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
+
+
 
 const routerConfig: ExtraOptions = {
     preloadingStrategy       : PreloadAllModules,
@@ -52,9 +57,13 @@ const routerConfig: ExtraOptions = {
              },
            },
          }),
+         SchemaFormModule.forRoot(),
+         AgGridModule,
+         NgxJsonViewerModule
     ],
     providers: [
-        { provide: ErrorHandler, useClass: ErrorsHandler }
+        //{ provide: ErrorHandler, useClass: ErrorsHandler }
+        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry }
     ],
     bootstrap   : [
         AppComponent

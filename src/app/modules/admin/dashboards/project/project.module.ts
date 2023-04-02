@@ -26,6 +26,7 @@ import { FuseCardModule } from '@fuse/components/card';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { NguCarouselModule } from '@ngu/carousel';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FuseAlertModule } from '@fuse/components/alert';
 
 @NgModule({
     declarations: [
@@ -62,7 +63,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         FuseCardModule,
         IvyCarouselModule,
         NguCarouselModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        FuseAlertModule
     ]
 })
 export class ProjectModule

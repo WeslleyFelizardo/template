@@ -17,6 +17,12 @@ import { SettingsPlanBillingComponent } from 'app/modules/admin/pages/settings/p
 import { SettingsNotificationsComponent } from 'app/modules/admin/pages/settings/notifications/notifications.component';
 import { SettingsTeamComponent } from 'app/modules/admin/pages/settings/team/team.component';
 import { settingsRoutes } from 'app/modules/admin/pages/settings/settings.routing';
+import { SettingsApiKeysComponent } from './api-keys/api-keys.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { FormsModule } from '@angular/forms';
+import { SettingsWebHooksComponent } from './web-hooks/web-hooks.component';
 
 @NgModule({
     declarations: [
@@ -25,7 +31,9 @@ import { settingsRoutes } from 'app/modules/admin/pages/settings/settings.routin
         SettingsSecurityComponent,
         SettingsPlanBillingComponent,
         SettingsNotificationsComponent,
-        SettingsTeamComponent
+        SettingsTeamComponent,
+        SettingsApiKeysComponent,
+        SettingsWebHooksComponent
     ],
     imports     : [
         RouterModule.forChild(settingsRoutes),
@@ -38,7 +46,11 @@ import { settingsRoutes } from 'app/modules/admin/pages/settings/settings.routin
         MatSidenavModule,
         MatSlideToggleModule,
         FuseAlertModule,
-        SharedModule
+        SharedModule,
+        MatTabsModule,
+        MatDividerModule,
+        MatExpansionModule,
+        FormsModule
     ]
 })
 export class SettingsModule

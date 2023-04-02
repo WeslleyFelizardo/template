@@ -4,6 +4,7 @@ import { ApimService } from './apim.service';
 import { UtilService } from './util.service';
 import { NotificationService } from './notification.service';
 import { ErrorService } from './error.service';
+import { WebhookService } from './webhook.service';
 
 @NgModule({
     imports  : [
@@ -14,7 +15,8 @@ import { ErrorService } from './error.service';
         MenuDocsService,
         UtilService,
         NotificationService,
-        ErrorService
+        ErrorService,
+        WebhookService
     ]
 })
 export class ServicesModule

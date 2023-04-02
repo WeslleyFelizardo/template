@@ -26,6 +26,22 @@ export const defaultNavigation: FuseNavigationItem[] = [
         ]
     },
     {
+        id      : 'monitoramento',
+        title   : 'Monitoramento',
+        subtitle: 'Unique dashboard designs',
+        type    : 'group',
+        icon    : 'heroicons_outline:home',
+        children: [
+            {
+                id   : 'webhooks-logs',
+                title: 'Logs Webhook',
+                type : 'basic',
+                icon : 'heroicons_outline:clipboard-check',
+                link : '/dashboards/analytics'
+            }
+        ]
+    },
+    {
         id      : 'catalogo',
         title   : 'Catálogo',
         subtitle: 'Unique dashboard designs',
@@ -150,6 +166,13 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     {
         id      : 'catalogo',
         title   : 'Catálogos',
+        type    : 'group',
+        icon    : 'heroicons_outline:home',
+        children: [] // This will be filled from defaultNavigation so we don't have to manage multiple sets of the same navigation
+    },
+    {
+        id      : 'monitoramento',
+        title   : 'Monitoramento',
         type    : 'group',
         icon    : 'heroicons_outline:home',
         children: [] // This will be filled from defaultNavigation so we don't have to manage multiple sets of the same navigation

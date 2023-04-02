@@ -13,6 +13,9 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { SharedModule } from 'app/shared/shared.module';
 import { AnalyticsComponent } from 'app/modules/admin/dashboards/analytics/analytics.component';
 import { analyticsRoutes } from 'app/modules/admin/dashboards/analytics/analytics.routing';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
     declarations: [
@@ -30,7 +33,10 @@ import { analyticsRoutes } from 'app/modules/admin/dashboards/analytics/analytic
         MatTableModule,
         MatTooltipModule,
         NgApexchartsModule,
-        SharedModule
+        SharedModule,
+        MatFormFieldModule,
+        MatOptionModule,
+        MatCheckboxModule
     ]
 })
 export class AnalyticsModule

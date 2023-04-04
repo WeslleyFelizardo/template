@@ -4,6 +4,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+import { OpenIdConnectService } from 'app/core/auth/open-id-connect.service';
 
 @Component({
     selector       : 'fuse-horizontal-navigation',
@@ -28,7 +29,8 @@ export class FuseHorizontalNavigationComponent implements OnChanges, OnInit, OnD
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService,
-        private _fuseUtilsService: FuseUtilsService
+        private _fuseUtilsService: FuseUtilsService,
+        private _auth: OpenIdConnectService
     )
     {
     }
@@ -57,14 +59,20 @@ export class FuseHorizontalNavigationComponent implements OnChanges, OnInit, OnD
      */
     ngOnInit(): void
     {
+        const me = this;
         // Make sure the name input is not an empty string
         if ( this.name === '' )
         {
             this.name = this._fuseUtilsService.randomId();
         }
 
+       
+
         // Register the navigation component
         this._fuseNavigationService.registerComponent(this.name, this);
+
+        
+       
     }
 
     /**

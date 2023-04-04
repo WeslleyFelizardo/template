@@ -14,6 +14,7 @@ export class ErrorService {
 
   tratarErroHttp(error: HttpErrorResponse) {
     let mensagemErro = '';
+    console.log('error', error)
 
     if (error.status === 0) {
       mensagemErro = 'Não foi possível se comunicar com o servidor';

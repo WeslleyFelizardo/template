@@ -22,21 +22,7 @@ export class AppComponent implements OnInit
     }
 
     ngOnInit(): void {
-        this.notificationService.obterNotificacao().subscribe((notificacao: BtpNotification) => {
-            console.log('appComponent')
-            if (notificacao) {
-              if (notificacao.fixo) {
-                this.zone.run(() => {
-                  this.snackBar.open(notificacao.mensagem, 'Dispensar', notificacao.options);
-                });
-              } else {
-                this.zone.run(() => {
-                  this.snackBar.open(notificacao.mensagem, '', notificacao.options);
-                });
-              }
-            } else {
-              this.snackBar.dismiss();
-            }
-          });
+        
+      
         }
 }

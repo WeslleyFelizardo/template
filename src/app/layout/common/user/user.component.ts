@@ -55,6 +55,8 @@ export class UserComponent implements OnInit, OnDestroy
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             });
+
+            this._changeDetectorRef.detectChanges();
     }
 
     /**
@@ -100,7 +102,7 @@ export class UserComponent implements OnInit, OnDestroy
     }
 
     onNagigateSettings() {
-        this._router.navigate(['./pages/settings']);
+        this._router.navigate(['./settings']);
 
     }
 }

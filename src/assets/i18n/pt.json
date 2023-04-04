@@ -1,23 +1,107 @@
 {
+    "titulo-erro-generico": "Oops, algo deu errado.",
     "markdown": {
         "observacao": "Observação",
         "dica": "Dica",
         "aviso": "Aviso",
         "cuidado": "Cuidado",
-        "importante": "Importante"
+        "importante": "Importante",
+        "comecando": "Teste"
+        
     },
-    "servicos": {
-        "TITULO": "Estes são os Endpoints que disponibilizamos para você se integrar conosco.",
+    "menu": {
+        "inicio": "Início",
+        "preco": "Preço",
+        "documentacao": "Documentação",
+        "catalogo": "Catálogo",
+        "monitoramento": "Monitoramento"
+    },
+    "api-keys": {
+        "titulo-1": "Subscrição",
+        "subtitulo-1": "Adicione abaixo a sua aplicação para obter as credenciais de acesso as nossas API's",
+        "nome-aplicacao": "Nome da aplicação",
+        "titulo-sucesso": "Aplicação registrada com sucesso",
+        "subtitulo-sucesso": "Suas credenciais foram geradas, agora você já pode consumir nossas API's",
+        "titulo-chaves": "Minhas chaves",
+        "subtitulo-chaves": "Armazene com cuidado suas credenciais de acesso",
+        "titulo-sem-chaves": "Você ainda não tem credenciais registradas",
+        "subtitulo-sem-chaves": "Inicie o cadastro das suas credenciais para acessar nossas API's"
+    },
+    "usuario": {
+        "configuracao": "Configuração",
+        "sair": "Sair",
+        "logado-como": "Logado como",
+        "login": "Entrar",
+        "registro": "Registrar-se",
+        "cadastro": {
+            "titulo": "Cadastra-se em nossa plataforma",
+            "subtitulo": "Crie seu cadastro, inicie sua jornada de integração conosco e gerencie suas credenciais de acesso.",
+            "botao-cadastro": "Criar um nova conta",
+            "titulo-sucesso": "Conta criada com sucesso",
+            "subtitulo-sucesso": "Clique no botão 'Entrar' no canto superior direito e explore nossa plataforma!",
+            "campos": {
+                "nome": "Nome",
+                "sobrenome": "Sobrenome",
+                "email": "Email",
+                "confirmacao-email": "Confirmação Email",
+                "senha": "Senha",
+                "confirmacao-senha": "Confirmação Senha",
+                "empresa": "Empresa"
+            },
+            "validacao": {
+                "nome-obrigatorio": "Nome é obrigatório",
+                "sobrenome-obrigatorio": "Sobrenome é obrigatório",
+                "email-obrigatorio": "Email é obrigatório",
+                "email-formato": "Por favor, entre com um e-mail válido",
+                "confirmacao-email-obrigatorio": "Confirmação Email é obrigatório",
+                "confirmacao-email-formato": "Por favor, entre com um e-mail válido",
+                "senha-obrigatorio": "Senha é obrigatório",
+                "confirmacao-senha-obrigatorio": "Confirmação Senha é obrigatório",
+                "empresa-obrigatorio": "Empresa é obrigatório"
+            }
+        }
+    },
+    "inicio": {
         "conheca-nossas-api": "Conheça nossas API's",
-        "link-documentacao": "Documentação"
+        "link-documentacao": "Documentação",
+        "subtitulo": "Explore e automatize seus processos com as integrações que temos disponíveis via API's para você"
     },
-    "recursos": {
+    "vantagens": {
         "titulo": "O que oferecemos para você?",
         "descricao": "Nosso objetivo principal é trazer agilidade e segurança na integração de sistemas com nossos parceiros, venha conhecer nossa plataforma.",
         "seguranca": {
-            "titulo": "",
-            "descricao": ""
+            "titulo": "Segurança",
+            "descricao": "Os dados são transferidos com alto nível de segurança, aplicando as melhores práticas em nosso ambiente"
+        },
+        "dados-tempo-real": {
+            "titulo": "Dados em Tempo Real",
+            "descricao": "Você recebe a informação assim que os dados são atualizados em nossos sistemas, disponibilizados dados que refletem a realidade atual de determinados processos."
+        },
+        "estrategia": {
+            "titulo": "Estratégica",
+            "descricao": "Nossos dados podem ajudar a você tomar melhores decisões estratégicas na sua organização, estamos oferecendo de forma consolidade, as informações necessário para executar essa tarefa."
+        },
+        "customizacao": {
+            "titulo": "Customização",
+            "descricao": "Oferecemos a você diversas integrações que podem ajudar o seu negócio, porém, entendemos as particulares de cada parceiro e estamos dispostos a analisar e implementar para integrar o que você precisa."
+        },
+        "automacao": {
+            "titulo": "Automação",
+            "descricao": "Sabemos os beneficios de automizar os processos, com isso, podemos trazer mais agilidade através de nossas integrações."
+        },
+        "documentacao": {
+            "titulo": "Documentação",
+            "descricao": "Temos uma documentação detalhada de cada endpoint que disponibilizados, acreditamos que dessa forma o parceiro tem as informações necessárias para integarir com nossas API's"
         }
+    },
+    "preco": {
+        "titulo-superior": "Encontre o plano que mais se encaixa com o seu negócio",
+        "titulo": "Confira nossos planos",
+        "subtitulo-1": "Selecione abaixo o seu perfil",
+        "subtitulo-2": "Verifique as características de cada plano",
+        "ultima-linha-tabela": "Integrações disponíveis para você",
+        "caracteristicas": "Características",
+        "recursos": "Recursos"
     }
 }
 

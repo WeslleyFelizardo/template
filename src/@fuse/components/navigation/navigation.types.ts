@@ -14,6 +14,10 @@ export interface FuseNavigationItem
         | 'spacer';
     hidden?: (item: FuseNavigationItem) => boolean;
     active?: boolean;
+    userProfile?: UserProfile
+    | 'guess'
+    | 'partner-developer'
+    | 'btp-developer';
     disabled?: boolean;
     tooltip?: string;
     link?: string;
@@ -59,3 +63,8 @@ export type FuseVerticalNavigationMode =
 export type FuseVerticalNavigationPosition =
     | 'left'
     | 'right';
+
+export type UserProfile =
+    | 'guess'
+    | 'partner-developer'
+    | 'btp-developer';

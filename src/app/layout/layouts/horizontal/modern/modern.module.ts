@@ -9,16 +9,12 @@ import { FuseFullscreenModule } from '@fuse/components/fullscreen';
 import { FuseLoadingBarModule } from '@fuse/components/loading-bar';
 import { FuseNavigationModule } from '@fuse/components/navigation';
 import { LanguagesModule } from 'app/layout/common/languages/languages.module';
-import { MessagesModule } from 'app/layout/common/messages/messages.module';
-import { NotificationsModule } from 'app/layout/common/notifications/notifications.module';
-import { QuickChatModule } from 'app/layout/common/quick-chat/quick-chat.module';
-import { SearchModule } from 'app/layout/common/search/search.module';
-import { ShortcutsModule } from 'app/layout/common/shortcuts/shortcuts.module';
 import { UserModule } from 'app/layout/common/user/user.module';
 import { SharedModule } from 'app/shared/shared.module';
 import { ModernLayoutComponent } from 'app/layout/layouts/horizontal/modern/modern.component';
 import { SchemeModule } from 'app/layout/common/scheme/scheme.module';
 import { LoginModule } from 'app/layout/common/login/login.module';
+import { SignUpModule } from 'app/layout/common/sign-up/sign-up.module';
 
 @NgModule({
     declarations: [
@@ -37,11 +33,7 @@ import { LoginModule } from 'app/layout/common/login/login.module';
         LanguagesModule,
         SchemeModule,
         LoginModule,
-        MessagesModule,
-        NotificationsModule,
-        QuickChatModule,
-        SearchModule,
-        ShortcutsModule,
+        SignUpModule,
         UserModule,
         SharedModule
     ],

@@ -5,9 +5,9 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   selector: 'btp-action-render',
   template: `<div fxLayout="row">
              <div *ngIf="!multiValue">
-                <mat-icon *ngIf="!iconVisibleOnlyWithLabel || (iconVisibleOnlyWithLabel && label && label !== '' && label.length > 0)"
+                <mat-icon class="icon-size-5" *ngIf="!iconVisibleOnlyWithLabel || (iconVisibleOnlyWithLabel && label && label !== '' && label.length > 0)"
                         style="font-size:18px; cursor:pointer; color: rgba(0, 0, 0, 0.54) !important"
-                        [inline]='true' (click)='invokeParentMethod()' [svgIcon]="'heroicons_outline:eye'"></mat-icon> Teste{{label}}
+                        [inline]='true' (click)='invokeParentMethod()' svgIcon="{{icon}}"></mat-icon>{{label}}
               </div>
 
               <div *ngIf="multiValue && labels.length > 0">
@@ -20,6 +20,8 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
               </div>
              </div>`
 })
+
+
 
 export class ActionRendererComponent implements ICellRendererAngularComp {
   private params: any;

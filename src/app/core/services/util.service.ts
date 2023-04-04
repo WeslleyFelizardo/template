@@ -62,7 +62,7 @@ export class UtilService {
   setLangMarkdown(name: string) {
       
     let langSelected = this._translocoService.getActiveLang();
-
+    console.log('langSelected', langSelected)
       if (langSelected == 'en')
         name = `${name}.en`;
 

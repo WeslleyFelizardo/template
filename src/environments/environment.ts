@@ -15,7 +15,7 @@ export const environment = {
     oidcSettings: {
       authority: 'https://localhost:44300/',
       client_id: 'btp_portal_desenvolvedor',
-      redirect_uri: 'http://localhost:4200/pages/authentication/sign-in/oidc',
+      redirect_uri: 'http://localhost:4200/authentication/sign-in',
       scope: 'openid profile webhooks_api developer_api',
       response_type: 'id_token token',
       post_logout_redirect_uri: 'http://localhost:4200/',

@@ -1,22 +1,106 @@
 {
+    "titulo-erro-generico": "Oops, something went wrong.",
     "markdown": {
         "observacao": "Note",
         "dica": "Tip",
         "aviso": "Warning",
         "cuidado": "Caution",
-        "importante": "Important"
+        "importante": "Important",
+        "comecando": "Teste 2"
     },
-    "servicos": {
+    "menu": {
+        "inicio": "Home",
+        "preco": "Pricing",
+        "documentacao": "Documentation",
+        "catalogo": "Catalog",
+        "monitoramento": "Monitoring"
+    },
+    "api-keys": {
+        "titulo-1": "Subscription",
+        "subtitulo-1": "Add your application below to obtain access credentials to our API's",
+        "nome-aplicacao": "Application name",
+        "titulo-sucesso": "Application successfully registered",
+        "subtitulo-sucesso": "Your credentials have been generated, now you can consume our API's",
+        "titulo-chaves": "My keys",
+        "subtitulo-chaves": "Carefully store your access credentials",
+        "titulo-sem-chaves": "You don't have registered credentials yet",
+        "subtitulo-sem-chaves": "Start registering your credentials to access our API's"
+    },
+    "usuario": {
+        "configuracao": "Settings",
+        "sair": "Sign out",
+        "logado-como": "Logged in as",
+        "login": "Sign In",
+        "registro": "Sign Up",
+        "cadastro": {
+            "titulo": "Register on our platform",
+            "subtitulo": "Create your registration, start your integration journey with us and manage your access credentials.",
+            "botao-cadastro": "Create a new account",
+            "titulo-sucesso": "Account created successfully",
+            "subtitulo-sucesso": "Click the 'Sign In' button in the upper right corner and explore our platform!",
+            "campos": {
+                "nome": "Name",
+                "sobrenome": "Last Name",
+                "email": "Email",
+                "confirmacao-email": "Email Confirmation",
+                "senha": "Password",
+                "confirmacao-senha": "Password Confirmation",
+                "empresa": "Company"
+            },
+            "validacao": {
+                "nome-obrigatorio": "Name is required",
+                "sobrenome-obrigatorio": "LastName is required",
+                "email-obrigatorio": "Email is required",
+                "email-formato": "Please enter a valid email address",
+                "confirmacao-email-obrigatorio": "Email Confirmation is required",
+                "confirmacao-email-formato": "Please enter a valid email address",
+                "senha-obrigatorio": "Password is required",
+                "confirmacao-senha-obrigatorio": "Password Confirmation is required",
+                "empresa-obrigatorio": "Company is required"
+            }
+        }
+    },
+    "inicio": {  
         "conheca-nossas-api": "Discover our API's",
-        "link-documentacao": "Documentation"
+        "link-documentacao": "Documentation",
+        "subtitulo": "Explore and automate your processes with the integrations that we have available via API's for you"
     },
-    "recursos": {
+    "vantagens": {
         "titulo": "What do we offer you?",
         "descricao": "Our main objective is to bring agility and security in the integration of systems with our partners, come and discover our platform.",
         "seguranca": {
-            "titulo": "",
-            "descricao": ""
+            "titulo": "Security",
+            "descricao": "Data is transferred with a high level of security, applying the best practices in our environment"
+        },
+        "dados-tempo-real": {
+            "titulo": "Real Time Data",
+            "descricao": "You receive the information as soon as the data is updated in our systems, making available data that reflects the current reality of certain processes."
+        },
+        "estrategia": {
+            "titulo": "Strategic",
+            "descricao": "Our data can help you make better strategic decisions in your organization, we are providing you in a consolidated way, the information necessary to perform this task."
+        },
+        "customizacao": {
+            "titulo": "Customization",
+            "descricao": "We offer you several integrations that can help your business, however, we understand the particularities of each partner and we are willing to analyze and implement to integrate what you need."
+        },
+        "automacao": {
+            "titulo": "Automation",
+            "descricao": "We know the benefits of automating processes, so we can bring more agility through our integrations."
+        },
+        "documentacao": {
+            "titulo": "Documentation",
+            "descricao": "We have a detailed documentation of each endpoint that we make available, we believe that in this way the partner has the necessary information to integrate with our API's"
         }
+    },
+    "preco": {
+        "titulo-superior": "Find the plan that best fits your business",
+        "titulo": "Check our plans",
+        "subtitulo-1": "Select your profile below",
+        "subtitulo-2": "Check the features of each plan",
+        "ultima-linha-tabela": "Integrations available to you",
+        "caracteristicas": "Features",
+        "recursos": "Resources"
     }
 }
 

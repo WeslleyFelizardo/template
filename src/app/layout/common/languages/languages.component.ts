@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { take } from 'rxjs';
 import { AvailableLangs, TranslocoService } from '@ngneat/transloco';
-import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
+import { FuseHorizontalNavigationComponent, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 
 @Component({
     selector       : 'languages',
@@ -41,13 +41,14 @@ export class LanguagesComponent implements OnInit, OnDestroy
 
         // Subscribe to language changes
         this._translocoService.langChanges$.subscribe((activeLang) => {
-
+            console.log('translate', activeLang);
             // Get the active lang
             this.activeLang = activeLang;
 
             // Update the navigation
             this._updateNavigation(activeLang);
         });
+
 
         // Set the country iso codes for languages for flags
         this.flagCodes = {
@@ -101,6 +102,7 @@ export class LanguagesComponent implements OnInit, OnDestroy
      */
     private _updateNavigation(lang: string): void
     {
+        console.log('_updateNavigation');
         // For the demonstration purposes, we will only update the Dashboard names
         // from the navigation but you can do a full swap and change the entire
         // navigation data.
@@ -109,44 +111,105 @@ export class LanguagesComponent implements OnInit, OnDestroy
         // it's up to you.
 
         // Get the component -> navigation data -> item
-        const navComponent = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('mainNavigation');
+        const navComponentHorizontal = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('mainNavigation');
+        const navComponentHorizontal2 = this._fuseNavigationService.getComponent<FuseHorizontalNavigationComponent>('mainNavigation');
+
+        console.log('navComponent', navComponentHorizontal);
+        console.log('navComponent', navComponentHorizontal2)
 
         // Return if the navigation component does not exist
-        if ( !navComponent )
+        if ( !navComponentHorizontal )
         {
             return null;
         }
 
         // Get the flat navigation data
-        const navigation = navComponent.navigation;
+        const navigation = navComponentHorizontal.navigation;
 
-        // Get the Project dashboard item and update its title
-        const projectDashboardItem = this._fuseNavigationService.getItem('dashboards.project', navigation);
-        if ( projectDashboardItem )
+        const homeItem = this._fuseNavigationService.getItem('menu.inicio', navigation);
+
+        if ( homeItem )
         {
-            this._translocoService.selectTranslate('Project').pipe(take(1))
+            console.log(homeItem);
+            this._translocoService.selectTranslate('menu.inicio').pipe(take(1))
                 .subscribe((translation) => {
+                    console.log(translation);
 
                     // Set the title
-                    projectDashboardItem.title = translation;
+                    homeItem.title = translation;
 
                     // Refresh the navigation component
-                    navComponent.refresh();
+                    navComponentHorizontal.refresh();
+
                 });
         }
 
-        // Get the Analytics dashboard item and update its title
-        const analyticsDashboardItem = this._fuseNavigationService.getItem('dashboards.analytics', navigation);
-        if ( analyticsDashboardItem )
+        const pricingItem = this._fuseNavigationService.getItem('menu.preco', navigation);
+
+        if ( pricingItem )
         {
-            this._translocoService.selectTranslate('Analytics').pipe(take(1))
+            this._translocoService.selectTranslate('menu.preco').pipe(take(1))
+                .subscribe((translation) => {
+                    console.log(translation);
+
+                    // Set the title
+                    pricingItem.title = translation;
+
+                    // Refresh the navigation component
+                    navComponentHorizontal.refresh();
+
+                });
+        }
+
+        const documentationItem = this._fuseNavigationService.getItem('menu.documentacao', navigation);
+
+        if ( documentationItem )
+        {
+            console.log(documentationItem);
+            this._translocoService.selectTranslate('menu.documentacao').pipe(take(1))
                 .subscribe((translation) => {
 
                     // Set the title
-                    analyticsDashboardItem.title = translation;
+                    documentationItem.title = translation;
 
                     // Refresh the navigation component
-                    navComponent.refresh();
+                    navComponentHorizontal.refresh();
+
+                });
+        }
+
+        
+        const catalogItem = this._fuseNavigationService.getItem('menu.catalogo', navigation);
+
+        if ( catalogItem )
+        {
+            console.log(catalogItem);
+            this._translocoService.selectTranslate('menu.catalogo').pipe(take(1))
+                .subscribe((translation) => {
+
+                    // Set the title
+                    catalogItem.title = translation;
+
+                    // Refresh the navigation component
+                    navComponentHorizontal.refresh();
+
+                });
+        }
+
+        const monitoringItem = this._fuseNavigationService.getItem('menu.monitoramento', navigation);
+
+        if ( monitoringItem )
+        {
+            console.log(monitoringItem);
+            this._translocoService.selectTranslate('menu.monitoramento').pipe(take(1))
+                .subscribe((translation) => {
+
+                    // Set the title
+                    monitoringItem.title = translation;
+
+                    // Refresh the navigation component
+                    navComponentHorizontal.refresh();
+
                 });
         }
     }

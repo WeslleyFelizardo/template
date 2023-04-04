@@ -1,17 +1,22 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, NgForm, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { ErrorDTO } from 'app/core/DTOs/errorDTO';
+import { EPerfilDesenvolvedor, EProduto } from 'app/core/services/apim.service';
+import { ErrorService } from 'app/core/services/error.service';
+import { ProfileDevParceiroService } from 'app/core/user/profile-dev-parceiro.service';
 
 @Component({
-    selector     : 'auth-sign-up',
+    selector     : 'sign-up',
     templateUrl  : './sign-up.component.html',
     encapsulation: ViewEncapsulation.None,
     animations   : fuseAnimations
 })
-export class AuthSignUpComponent implements OnInit
+export class SignUpComponent implements OnInit
 {
     @ViewChild('signUpNgForm') signUpNgForm: NgForm;
 
@@ -21,6 +26,12 @@ export class AuthSignUpComponent implements OnInit
     };
     signUpForm: UntypedFormGroup;
     showAlert: boolean = false;
+    planoSelecionado: string = '';
+    perfilSelecionado: string = ''; 
+    public cadastroSucesso: boolean = false;
+    public cadastroErro: ErrorDTO = new ErrorDTO();
+
+    _senhaConfirmaValidatorFn;
 
     /**
      * Constructor
@@ -28,9 +39,20 @@ export class AuthSignUpComponent implements OnInit
     constructor(
         private _authService: AuthService,
         private _formBuilder: UntypedFormBuilder,
-        private _router: Router
+        private serviceProfileDevParceiro: ProfileDevParceiroService,
+        private _router: Router,
+        private _location: Location,
+        private _errorService: ErrorService
     )
     {
+      const params = this._location.getState();
+      this.planoSelecionado = params['plano'];
+      this.perfilSelecionado = params['perfil'];
+      console.log(this.planoSelecionado);
+      console.log(this.perfilSelecionado);
+      this._senhaConfirmaValidatorFn = this.senhaConfirmaValidatorFn.bind(this);
+
+       
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -44,12 +66,14 @@ export class AuthSignUpComponent implements OnInit
     {
         // Create the form
         this.signUpForm = this._formBuilder.group({
-                name      : ['', Validators.required],
+                nome      : ['', Validators.required],
+                sobrenome      : ['', Validators.required],
                 email     : ['', [Validators.required, Validators.email]],
-                password  : ['', Validators.required],
-                company   : [''],
-                agreements: ['', Validators.requiredTrue]
-            }
+                confirmacaoEmail     : ['', [Validators.required, Validators.email]],
+                senha  : ['', Validators.required],
+                confirmacaoSenha  : ['', Validators.required],
+                empresa   : ['', Validators.required]
+          }
         );
     }
 
@@ -58,47 +82,77 @@ export class AuthSignUpComponent implements OnInit
     // -----------------------------------------------------------------------------------------------------
 
     /**
-     * Sign up
+     * Sign in
      */
     signUp(): void
     {
-        // Do nothing if the form is invalid
-        if ( this.signUpForm.invalid )
-        {
+        const me = this;
+
+        this.cadastroErro.reset();
+        const perfil: EPerfilDesenvolvedor =
+        EPerfilDesenvolvedor[
+          this.perfilSelecionado as keyof typeof EPerfilDesenvolvedor
+        ];
+      const planoProduto: EProduto =
+        EProduto[this.planoSelecionado as keyof typeof EProduto];
+
+        if (!this.signUpForm.valid)
             return;
-        }
 
-        // Disable the form
-        this.signUpForm.disable();
+        const valueForm = this.signUpForm.value;
+        valueForm.perfil = perfil;
+        valueForm.plano = planoProduto;
 
-        // Hide the alert
-        this.showAlert = false;
-
-        // Sign up
-        this._authService.signUp(this.signUpForm.value)
+        this.serviceProfileDevParceiro
+            .inserirDesenvolvedorParceiro(valueForm)
             .subscribe(
-                (response) => {
+              async (data: any) => {
+                this.cadastroSucesso = true;
+                this.signUpForm.value({});
 
-                    // Navigate to the confirmation required page
-                    this._router.navigateByUrl('/confirmation-required');
-                },
-                (response) => {
+                setTimeout(function() {
+                  me.cadastroSucesso = false;
+                  
+                }.bind(me), 5000);
 
-                    // Re-enable the form
-                    this.signUpForm.enable();
-
-                    // Reset the form
-                    this.signUpNgForm.resetForm();
-
-                    // Set the alert
-                    this.alert = {
-                        type   : 'error',
-                        message: 'Something went wrong, please try again.'
-                    };
-
-                    // Show the alert
-                    this.showAlert = true;
-                }
-            );
+              }, (error) => {
+                this.cadastroErro.show(this._errorService.tratarErroHttp(error))
+              }
+            );  
     }
+
+    senhaConfirmaValidatorFn(control: FormControl) {
+        try {
+            console.log('validate senha');
+          const senhaConfirmacao = control.value;
+          const isValid =
+            senhaConfirmacao === this.signUpForm.controls.senha.value;
+          if (!isValid) {
+            return [{ senhaConfirmacao: 'senha não é igual' }];
+          }
+        } catch (error) {
+          return [{ senhaConfirmacao: 'senha não é igual' }];
+        }
+        return [true];
+      }
+    
+      senhaStrengthValidatorFn(control: FormControl) {
+        const password = control.value;
+        const length = password.length;
+        const hasUppercase = /[A-Z]/.test(password);
+        const hasLowercase = /[a-z]/.test(password);
+        const hasNumber = /\d/.test(password);
+        const hasSpecialChar = /[!@#$%^&*]/.test(password);
+        if (
+          length >= 8 &&
+          hasUppercase &&
+          hasLowercase &&
+          hasNumber &&
+          hasSpecialChar
+        ) {
+          return [true];
+        } else {
+          return [{ senhaFraca: 'senha fraca' }];
+        }
+      }
 }

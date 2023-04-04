@@ -10,24 +10,26 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon    : 'heroicons_outline:home',
         children: [
             {
-                id   : 'dashboards.project',
-                title: 'Documentação',
+                id   : 'menu.documentacao',
+                title: 'Documentation',
                 type : 'basic',
                 icon : 'heroicons_outline:clipboard-check',
-                link : '/docs/guides/getting-started/overview'
+                link : '/docs/guides/getting-started/overview',
+                userProfile: 'guess'
             },
             {
-                id   : 'dashboards.project',
-                title: 'Preço',
+                id   : 'menu.preco',
+                title: 'Pricing',
                 type : 'basic',
                 icon : 'heroicons_outline:clipboard-check',
-                link : '/pages/pricing/modern'
+                link : '/pricing',
+                userProfile: 'guess'
             },
         ]
     },
     {
-        id      : 'monitoramento',
-        title   : 'Monitoramento',
+        id      : 'menu.monitoramento',
+        title   : 'Monitoring',
         subtitle: 'Unique dashboard designs',
         type    : 'group',
         icon    : 'heroicons_outline:home',
@@ -37,13 +39,14 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Logs Webhook',
                 type : 'basic',
                 icon : 'heroicons_outline:clipboard-check',
-                link : '/dashboards/analytics'
+                link : '/monitoring/logs-webhooks',
+                userProfile: 'partner-developer'
             }
         ]
     },
     {
-        id      : 'catalogo',
-        title   : 'Catálogo',
+        id      : 'menu.catalogo',
+        title   : 'Catalog',
         subtitle: 'Unique dashboard designs',
         type    : 'group',
         icon    : 'heroicons_outline:home',
@@ -53,14 +56,16 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'API\'s',
                 type : 'basic',
                 icon : 'heroicons_outline:clipboard-check',
-                link : '/dashboards/project'
+                link : '/dashboards/project',
+                userProfile: 'btp-developer'
             },
             {
                 id   : 'dashboards.project',
                 title: 'Worker',
                 type : 'basic',
                 icon : 'heroicons_outline:clipboard-check',
-                link : '/dashboards/project'
+                link : '/dashboards/project',
+                userProfile: 'btp-developer'
             },
         ]
     }
@@ -149,11 +154,11 @@ export const futuristicNavigation: FuseNavigationItem[] = [
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
-        id      : 'home',
+        id      : 'menu.inicio',
         title   : 'Home',
         type    : 'basic',
         icon    : 'heroicons_outline:home',
-        link    : '/dashboards/project',
+        link    : '/home',
         children: [] // This will be filled from defaultNavigation so we don't have to manage multiple sets of the same navigation
     },
     {
@@ -164,15 +169,15 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         children: [] // This will be filled from defaultNavigation so we don't have to manage multiple sets of the same navigation
     },
     {
-        id      : 'catalogo',
-        title   : 'Catálogos',
+        id      : 'menu.catalogo',
+        title   : 'Catalog',
         type    : 'group',
         icon    : 'heroicons_outline:home',
         children: [] // This will be filled from defaultNavigation so we don't have to manage multiple sets of the same navigation
     },
     {
-        id      : 'monitoramento',
-        title   : 'Monitoramento',
+        id      : 'menu.monitoramento',
+        title   : 'Monitoring',
         type    : 'group',
         icon    : 'heroicons_outline:home',
         children: [] // This will be filled from defaultNavigation so we don't have to manage multiple sets of the same navigation

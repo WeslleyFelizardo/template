@@ -30,7 +30,7 @@ export class BtpMarkdownComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    console.log(this.url);
+    
 
     const me = this;
     me.markdownService.renderer.image = (

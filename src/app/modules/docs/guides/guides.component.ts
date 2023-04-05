@@ -87,14 +87,14 @@ export class GuidesComponent implements OnInit, OnDestroy
                 type    : 'group',
                 children: [
                     {
-                        id   : 'getting-started.overview',
+                        id   : 'markdown.introducao',
                         title: 'Introduction',
                         type : 'basic',
                         link : '/docs/guides/getting-started/overview',
                         icon: 'heroicons_outline:document-text'
                     },
                     {
-                        id   : 'getting-started.security',
+                        id   : 'markdown.seguranca',
                         title: 'Security',
                         type : 'basic',
                         link : '/docs/guides/getting-started/security',

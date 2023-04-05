@@ -32,6 +32,7 @@ export class SigninOidcComponent implements OnInit
       usuarioCarregado => {
         if (usuarioCarregado) {
           const usuarioLogado = this.openIdConnectService.usuario;
+
           this.router.navigate(['/']);
         }
       }

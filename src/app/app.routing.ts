@@ -1,6 +1,8 @@
 import { Route } from '@angular/router';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { InitialDataResolver } from 'app/app.resolvers';
+import { AuthGuard } from './core/auth/guards/auth.guard';
+import { NoAuthGuard } from './core/auth/guards/noAuth.guard';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -26,8 +28,8 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children: [
-            {path: 'home', loadChildren: () => import('app/modules/home/home.module').then(m => m.HomeModule)},
-            {path: 'pricing', loadChildren: () => import('app/modules/pricing/pricing.module').then(m => m.PricingModule)},
+            {path: 'home', loadChildren: () => import('app/modules/home/home.module').then(m => m.HomeModule), canActivate: [NoAuthGuard]},
+            {path: 'pricing', loadChildren: () => import('app/modules/pricing/pricing.module').then(m => m.PricingModule), canActivate: [NoAuthGuard]},
 
         ]
     },
@@ -62,17 +64,17 @@ export const appRoutes: Route[] = [
 
                 // Changelog
                 // Guides
-                {path: 'guides', loadChildren: () => import('app/modules/docs/guides/guides.module').then(m => m.GuidesModule)}
+                {path: 'guides', loadChildren: () => import('app/modules/docs/guides/guides.module').then(m => m.GuidesModule), canActivate: [NoAuthGuard]}
             ]},
 
             // Settings
-            {path: 'settings', loadChildren: () => import('app/modules/settings/settings.module').then(m => m.SettingsModule)},
+            {path: 'settings', loadChildren: () => import('app/modules/settings/settings.module').then(m => m.SettingsModule), canActivate: [AuthGuard]},
 
             {path: 'monitoring', children: [
 
                 // Changelog
                 // Guides
-                {path: '', loadChildren: () => import('app/modules/monitoring/monitoring.module').then(m => m.MonitoringModule)}
+                {path: '', loadChildren: () => import('app/modules/monitoring/monitoring.module').then(m => m.MonitoringModule), canActivate: [AuthGuard]}
             ]},
             
             // 404 & Catch all

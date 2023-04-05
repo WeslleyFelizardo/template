@@ -29,9 +29,7 @@ export class BtpMarkdownComponent implements OnInit, OnDestroy {
     private translocoService: TranslocoService  ) { }
 
   ngOnInit() {
-
     
-
     const me = this;
     me.markdownService.renderer.image = (
       href: string,

@@ -1,23 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TranslocoService } from '@ngneat/transloco';
 import { UtilService } from 'app/core/services/util.service';
+import { environment } from 'environments/environment';
 import { GuidesComponent } from '../../guides.component';
 
 @Component({
     selector   : 'security',
     templateUrl: './security.html'
 })
-export class SecurityComponent
+export class SecurityComponent implements OnInit
 {
-    public urlSecurityMd = 'https://strgbtpapim.blob.core.windows.net/btp-docs/developer-portal/';
-
+    public urlSecurityMd = '';
+    private fileName: string = '';
     /**
      * Constructor
      */
     constructor(
         private _guidesComponent: GuidesComponent,
-        private utilService: UtilService )
+        private utilService: UtilService,
+        private _translocoService: TranslocoService)
     {
-        this.urlSecurityMd = `${this.urlSecurityMd}${utilService.setLangMarkdown("security")}`;
+    }
+    ngOnInit(): void {
+        const me = this;
+        this._translocoService.langChanges$.subscribe(lang => {
+            this.fileName = this.utilService.setLangMarkdown("security");
+            this.urlSecurityMd = `${environment.docs.portalDevelopers}${this.fileName}`;
+        })
     }
 
     // -----------------------------------------------------------------------------------------------------

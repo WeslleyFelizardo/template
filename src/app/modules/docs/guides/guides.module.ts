@@ -22,6 +22,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { GuidesComponent } from './guides.component';
 import { guidesRoutes } from './guides.routing';
+import { TranslocoModule } from '@ngneat/transloco';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { guidesRoutes } from './guides.routing';
         ServicesModule,
         MatTabsModule,
         MatDividerModule,
-        MatExpansionModule
+        MatExpansionModule,
+        TranslocoModule
     ]
 })
 export class GuidesModule

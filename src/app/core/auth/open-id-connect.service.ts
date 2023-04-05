@@ -33,7 +33,6 @@ export class OpenIdConnectService {
     // this.usuarioCarregado$.next(true);
 
     this.gerenciadorUsuario.events.addUserLoaded((usuario) => { 
-      console.log("Usuario carregado.", usuario);
 
       if (!environment.production) {
         console.log("Usuario carregado.", usuario);
@@ -45,9 +44,13 @@ export class OpenIdConnectService {
       // console.log("usuário");
       this.devParceiroService.getDevParceiroPerfil().subscribe(
         (data) => {
-          if (data && !!data?.idDesenvolvedorParceiro) {
+          if (data) {
+            console.log('CARREGUEI PERFIL');
             this.perfilDesenvolvedorParceiro = data;
-          }          
+          }     else {
+            console.log('não CARREGUEI PERFIL');
+
+          }     
         },
         (error) => {
           this.perfilDesenvolvedorParceiro = undefined;         
@@ -62,8 +65,6 @@ export class OpenIdConnectService {
       if (!environment.production) {
         // console.log('Usuario descarregado');
       }
-
-      sessionStorage.removeItem("Acessos");
 
       this.usuarioAtual = null;
       this.usuarioCarregado$.next(false);
@@ -98,7 +99,7 @@ export class OpenIdConnectService {
 
   gerenciarCallback(): void { 
     // window.location.hash = decodeURIComponent(window.location.hash);
-    console.log('Inicio do callback apos refresh da tela ou signin');
+    // console.log('Inicio do callback apos refresh da tela ou signin');
     // this.carregarSitemas$.next(true);
 
     // this.gerenciadorUsuario.getUser().then(user => {
@@ -106,7 +107,7 @@ export class OpenIdConnectService {
     this.gerenciadorUsuario
       .signinRedirectCallback()
       .then(function (usuario) {
-        
+        console.log('')
         if (!environment.production) {
           console.log('Callback manuseado após signin com sucesso.', usuario);
         }

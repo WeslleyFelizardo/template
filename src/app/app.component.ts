@@ -1,5 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 import { BtpNotification } from './core/DTOs/btpNotification';
 import { NotificationService } from './core/services/notification.service';
 
@@ -13,16 +14,16 @@ export class AppComponent implements OnInit
     /**
      * Constructor
      */
-    constructor(private notificationService: NotificationService,
-        private zone: NgZone,
-        public snackBar: MatSnackBar
-
-        )
+    constructor(private _transloco: TranslocoService)
     {
     }
 
     ngOnInit(): void {
+        let languageSelected = 'en';
+
+        if (navigator.language.includes('pt'))
+            languageSelected = 'pt'
         
-      
-        }
+        this._transloco.setActiveLang(languageSelected);
+    }
 }

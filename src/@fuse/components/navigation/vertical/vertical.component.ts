@@ -10,6 +10,8 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 import { FuseScrollbarDirective } from '@fuse/directives/scrollbar/scrollbar.directive';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { OpenIdConnectService } from 'app/core/auth/open-id-connect.service';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
     selector       : 'fuse-vertical-navigation',
@@ -72,7 +74,9 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
         private _router: Router,
         private _scrollStrategyOptions: ScrollStrategyOptions,
         private _fuseNavigationService: FuseNavigationService,
-        private _fuseUtilsService: FuseUtilsService
+        private _fuseUtilsService: FuseUtilsService,
+        private _auth: OpenIdConnectService,
+        private _transloco: TranslocoService
     )
     {
         this._handleAsideOverlayClick = (): void => {
@@ -158,6 +162,8 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
                     });
                 });
     }
+
+    
 
     // -----------------------------------------------------------------------------------------------------
     // @ Decorated methods
@@ -328,6 +334,49 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
                     this.closeAside();
                 }
             });
+
+            this._auth.usuarioCarregado$.subscribe(user => {
+                this.applyRuleNavigation();
+                this.refresh();
+            });
+           
+            this.applyRuleNavigation();
+            
+            this._transloco.setActiveLang(this._transloco.getActiveLang());
+
+    }
+
+    private applyRuleNavigation() {
+        const me = this;
+        this.navigation.forEach(menu => {
+            let amountItemHidden = 0;
+
+            menu.children?.forEach(l1 => {
+                if (l1.userProfile == 'btp-developer') {
+                    l1.hidden = (item) => {
+                        return !me._auth.usuario || !me._auth.perfilDesenvolvedorParceiro?.desenvolvedorInternoBtp;
+                    }
+                } else if (l1.userProfile == 'partner-developer') {
+                    l1.hidden = (item) => {
+                        return !me._auth.usuario || me._auth.perfilDesenvolvedorParceiro?.idDesenvolvedorParceiro == null;
+                    }                    
+                }
+                if (l1.hidden)
+                {
+                    if (l1.hidden(l1))
+                    amountItemHidden++;
+                }
+            });
+
+            if ( menu.children?.length > 0 && amountItemHidden == menu.children.length)
+            {
+                menu.hidden = (item) => true;
+            }
+        });
+
+
+        
+
     }
 
     /**

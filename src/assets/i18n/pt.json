@@ -6,7 +6,10 @@
         "aviso": "Aviso",
         "cuidado": "Cuidado",
         "importante": "Importante",
-        "comecando": "Teste"
+        "comecando": "Começando",
+        "introducao": "Introdução",
+        "seguranca": "Segurança"
+
         
     },
     "menu": {

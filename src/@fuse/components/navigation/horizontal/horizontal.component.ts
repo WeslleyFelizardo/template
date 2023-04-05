@@ -5,6 +5,8 @@ import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
 import { OpenIdConnectService } from 'app/core/auth/open-id-connect.service';
+import { items } from 'app/mock-api/apps/file-manager/data';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
     selector       : 'fuse-horizontal-navigation',
@@ -30,11 +32,12 @@ export class FuseHorizontalNavigationComponent implements OnChanges, OnInit, OnD
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService,
         private _fuseUtilsService: FuseUtilsService,
-        private _auth: OpenIdConnectService
-    )
+        private _auth: OpenIdConnectService,
+        private _transolocoService: TranslocoService    )
     {
     }
 
+    
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
@@ -66,13 +69,51 @@ export class FuseHorizontalNavigationComponent implements OnChanges, OnInit, OnD
             this.name = this._fuseUtilsService.randomId();
         }
 
-       
-
         // Register the navigation component
         this._fuseNavigationService.registerComponent(this.name, this);
 
-        
+        this._auth.usuarioCarregado$.subscribe(user => {
+            this.applyRuleNavigation();
+            this.refresh();
+        });
        
+        this.applyRuleNavigation();
+
+        this._transolocoService.setActiveLang(this._transolocoService.getActiveLang());
+    }
+
+    private applyRuleNavigation() {
+        const me = this;
+        this.navigation.forEach(menu => {
+            let amountItemHidden = 0;
+
+            menu.children.forEach(l1 => {
+                if (l1.userProfile == 'btp-developer') {
+                    l1.hidden = (item) => {
+                        return !me._auth.usuario || !me._auth.perfilDesenvolvedorParceiro?.desenvolvedorInternoBtp;
+                    }
+                } else if (l1.userProfile == 'partner-developer') {
+                    l1.hidden = (item) => {
+                        return !me._auth.usuario || me._auth.perfilDesenvolvedorParceiro?.idDesenvolvedorParceiro == null;
+                    }                    
+                }
+
+                if (l1.hidden)
+                {
+                    if (l1.hidden(l1))
+                    amountItemHidden++;
+                }
+            });
+
+            if ( menu.children.length > 0 && amountItemHidden == menu.children.length)
+            {
+                menu.hidden = (item) => true;
+            }
+        });
+
+
+        
+
     }
 
     /**

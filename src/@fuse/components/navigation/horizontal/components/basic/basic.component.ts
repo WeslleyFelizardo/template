@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { IsActiveMatchOptions } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, take, takeUntil } from 'rxjs';
 import { FuseHorizontalNavigationComponent } from '@fuse/components/navigation/horizontal/horizontal.component';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FuseNavigationItem } from '@fuse/components/navigation/navigation.types';
 import { FuseUtilsService } from '@fuse/services/utils/utils.service';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Component({
     selector       : 'fuse-horizontal-navigation-basic-item',
@@ -26,7 +27,8 @@ export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDes
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService,
-        private _fuseUtilsService: FuseUtilsService
+        private _fuseUtilsService: FuseUtilsService,
+        private _translocoService: TranslocoService
     )
     {
         // Set the equivalent of {exact: false} as default for active match options.
@@ -67,6 +69,17 @@ export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDes
             // Mark for check
             this._changeDetectorRef.markForCheck();
         });
+    }
+
+    translate(item: FuseNavigationItem) {
+        const me = this;
+        let title = '';
+
+        let translate = this._translocoService.getTranslation();
+        console.log(translate);
+        console.log(item.id);
+        console.log(translate[item.id]);
+        return translate[item.id];
     }
 
     /**

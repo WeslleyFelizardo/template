@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { UtilService } from 'app/core/services/util.service';
+import { environment } from 'environments/environment.dev';
 import { MarkdownService } from 'ngx-markdown';
 import { GuidesComponent } from '../../guides.component';
 
@@ -10,7 +11,8 @@ import { GuidesComponent } from '../../guides.component';
 })
 export class OverviewComponent implements OnInit
 {
-    public urlOverviewMd = 'https://strgbtpapim.blob.core.windows.net/btp-docs/developer-portal/';
+    public urlOverviewMd = '';
+    public fileName: string = '';
     /**
      * Constructor
      */
@@ -20,14 +22,14 @@ export class OverviewComponent implements OnInit
         private utilService: UtilService,
         private _translocoService: TranslocoService        )
     {
-        this.urlOverviewMd = `${this.urlOverviewMd}${utilService.setLangMarkdown("overview")}`;
     }
 
     ngOnInit(): void {
+        
         const me = this;
         this._translocoService.langChanges$.subscribe(lang => {
-            console.log(lang);
-           
+            this.fileName = this.utilService.setLangMarkdown("overview");
+            this.urlOverviewMd = `${environment.docs.portalDevelopers}${this.fileName}`;
         })
     }
 

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { take } from 'rxjs';
 import { AvailableLangs, TranslocoService } from '@ngneat/transloco';
 import { FuseHorizontalNavigationComponent, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
+import { MarkdownService } from 'ngx-markdown';
 
 @Component({
     selector       : 'languages',
@@ -22,7 +23,8 @@ export class LanguagesComponent implements OnInit, OnDestroy
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseNavigationService: FuseNavigationService,
-        private _translocoService: TranslocoService
+        private _translocoService: TranslocoService,
+        private markdownService: MarkdownService
     )
     {
     }
@@ -41,12 +43,14 @@ export class LanguagesComponent implements OnInit, OnDestroy
 
         // Subscribe to language changes
         this._translocoService.langChanges$.subscribe((activeLang) => {
-            console.log('translate', activeLang);
             // Get the active lang
             this.activeLang = activeLang;
-
+            console.log(activeLang)
             // Update the navigation
             this._updateNavigation(activeLang);
+
+            this.markdownService.reload();
+
         });
 
 
@@ -102,7 +106,6 @@ export class LanguagesComponent implements OnInit, OnDestroy
      */
     private _updateNavigation(lang: string): void
     {
-        console.log('_updateNavigation');
         // For the demonstration purposes, we will only update the Dashboard names
         // from the navigation but you can do a full swap and change the entire
         // navigation data.
@@ -111,29 +114,74 @@ export class LanguagesComponent implements OnInit, OnDestroy
         // it's up to you.
 
         // Get the component -> navigation data -> item
-        const navComponentHorizontal = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('mainNavigation');
-        const navComponentHorizontal2 = this._fuseNavigationService.getComponent<FuseHorizontalNavigationComponent>('mainNavigation');
+        const navComponentVertical = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('mainNavigation');
+        const navComponentHorizontal = this._fuseNavigationService.getComponent<FuseHorizontalNavigationComponent>('mainNavigation');
 
-        console.log('navComponent', navComponentHorizontal);
-        console.log('navComponent', navComponentHorizontal2)
-
+        const navComponentVerticalDocs = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('docs-guides-navigation');
         // Return if the navigation component does not exist
         if ( !navComponentHorizontal )
         {
+            console.log('atualizando menu', navComponentHorizontal)
+
             return null;
         }
 
         // Get the flat navigation data
         const navigation = navComponentHorizontal.navigation;
+        const navigationDocs = navComponentVerticalDocs?.navigation;
+
+        if (navigationDocs)
+        {
+            const getttingStartedItem = this._fuseNavigationService.getItem('markdown.comecando', navigationDocs);
+            if ( getttingStartedItem )
+            {
+                this._translocoService.selectTranslate('markdown.comecando').pipe(take(1))
+                    .subscribe((translation) => {
+                        // Set the title
+                        getttingStartedItem.title = translation;
+
+                        // Refresh the navigation component
+                        navComponentVerticalDocs.refresh();
+
+                    });
+            }
+
+            const introductionItem = this._fuseNavigationService.getItem('markdown.introducao', navigationDocs);
+            if ( introductionItem )
+            {
+                this._translocoService.selectTranslate('markdown.introducao').pipe(take(1))
+                    .subscribe((translation) => {
+                        // Set the title
+                        introductionItem.title = translation;
+
+                        // Refresh the navigation component
+                        navComponentVerticalDocs.refresh();
+
+                    });
+            }
+
+            const securityItem = this._fuseNavigationService.getItem('markdown.seguranca', navigationDocs);
+            if ( introductionItem )
+            {
+                this._translocoService.selectTranslate('markdown.seguranca').pipe(take(1))
+                    .subscribe((translation) => {
+
+                        // Set the title
+                        securityItem.title = translation;
+
+                        // Refresh the navigation component
+                        navComponentVerticalDocs.refresh();
+
+                    });
+            }
+        }
 
         const homeItem = this._fuseNavigationService.getItem('menu.inicio', navigation);
 
         if ( homeItem )
         {
-            console.log(homeItem);
             this._translocoService.selectTranslate('menu.inicio').pipe(take(1))
                 .subscribe((translation) => {
-                    console.log(translation);
 
                     // Set the title
                     homeItem.title = translation;
@@ -150,7 +198,6 @@ export class LanguagesComponent implements OnInit, OnDestroy
         {
             this._translocoService.selectTranslate('menu.preco').pipe(take(1))
                 .subscribe((translation) => {
-                    console.log(translation);
 
                     // Set the title
                     pricingItem.title = translation;
@@ -165,7 +212,6 @@ export class LanguagesComponent implements OnInit, OnDestroy
 
         if ( documentationItem )
         {
-            console.log(documentationItem);
             this._translocoService.selectTranslate('menu.documentacao').pipe(take(1))
                 .subscribe((translation) => {
 
@@ -183,7 +229,6 @@ export class LanguagesComponent implements OnInit, OnDestroy
 
         if ( catalogItem )
         {
-            console.log(catalogItem);
             this._translocoService.selectTranslate('menu.catalogo').pipe(take(1))
                 .subscribe((translation) => {
 
@@ -200,7 +245,6 @@ export class LanguagesComponent implements OnInit, OnDestroy
 
         if ( monitoringItem )
         {
-            console.log(monitoringItem);
             this._translocoService.selectTranslate('menu.monitoramento').pipe(take(1))
                 .subscribe((translation) => {
 

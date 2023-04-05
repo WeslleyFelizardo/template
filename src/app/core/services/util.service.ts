@@ -14,6 +14,9 @@ export class UtilService {
     
     //private clipboard: ClipboardService,
   ) { }
+
+  
+
   testJSON(strJson) {
     try {
       const parsed = JSON.parse(strJson);
@@ -62,7 +65,9 @@ export class UtilService {
   setLangMarkdown(name: string) {
       
     let langSelected = this._translocoService.getActiveLang();
-    console.log('langSelected', langSelected)
+    console.log('langSelected', langSelected);
+
+
       if (langSelected == 'en')
         name = `${name}.en`;
 

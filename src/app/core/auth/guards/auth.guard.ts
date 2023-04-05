@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, CanMatch, Route, Router, RouterSta
 import { Observable, of, switchMap } from 'rxjs';
 import { AuthService } from 'app/core/auth/auth.service';
 import { OpenIdConnectService } from '../open-id-connect.service';
+import { environment } from 'environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -21,8 +22,10 @@ export class AuthGuard implements CanActivate
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+        let accessToken = sessionStorage.getItem(`oidc.user:${environment.oidcSettings.authority}:btp_portal_desenvolvedor`)
         
-        if (this._auth.usuarioDisponivel) {
+        if (this._auth.usuarioDisponivel || accessToken) {
+            
             return true;
         }
         else {

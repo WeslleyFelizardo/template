@@ -6,7 +6,9 @@
         "aviso": "Warning",
         "cuidado": "Caution",
         "importante": "Important",
-        "comecando": "Teste 2"
+        "comecando": "Getting Started",
+        "introducao": "Introduction",
+        "seguranca": "Security"
     },
     "menu": {
         "inicio": "Home",

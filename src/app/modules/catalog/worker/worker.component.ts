@@ -65,7 +65,6 @@ export class WorkerComponent implements OnInit, OnDestroy, AfterViewInit
         const me = this;
         const operationList = this.apimService.getOperationsNames(apis);
         const operations = []
-        console.log('operations', operationList)
         for (let i = 0; i < operationList.length; i++) {
     
           const o = {
